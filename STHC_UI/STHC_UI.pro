@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2013-06-13T13:44:50
+# Project created by QtCreator 2013-06-13T14:09:54
 #
 #-------------------------------------------------
 
@@ -9,8 +9,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        hmmanager.cpp
+        tv_ui.cpp
 
-HEADERS  += hmmanager.h
+HEADERS  += tv_ui.h
 
-FORMS    += hmmanager.ui
+FORMS    += tv_ui.ui
