@@ -25,12 +25,27 @@ void Heater_UI::changeEvent(QEvent *e)
     }
 }
 
+void Heater_UI::on_powerButton_clicked()
+{
+
+}
+
 void Heater_UI::on_windUpButton_clicked()
 {
 
 }
 
 void Heater_UI::on_windDownButton_clicked()
+{
+
+}
+
+void Heater_UI::on_tempUpButton_clicked()
+{
+
+}
+
+void Heater_UI::on_tempDownButton_clicked()
 {
 
 }

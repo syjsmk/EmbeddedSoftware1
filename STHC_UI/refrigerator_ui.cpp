@@ -24,3 +24,18 @@ void Refrigerator_UI::changeEvent(QEvent *e)
         break;
     }
 }
+
+void Refrigerator_UI::on_powerButton_clicked()
+{
+
+}
+
+void Refrigerator_UI::on_tempUpButton_clicked()
+{
+
+}
+
+void Refrigerator_UI::on_tempDownButton_clicked()
+{
+
+}

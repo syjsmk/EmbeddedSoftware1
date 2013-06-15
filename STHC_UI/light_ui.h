@@ -18,6 +18,11 @@ protected:
 
 private:
     Ui::Light_UI *m_ui;
+
+private slots:
+    void on_brightDownButton_clicked();
+    void on_brightUpButton_clicked();
+    void on_powerButton_clicked();
 };
 
 #endif // LIGHT_UI_H

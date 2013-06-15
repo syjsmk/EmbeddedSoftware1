@@ -39,3 +39,13 @@ void Cooler_UI::on_tempDownButton_clicked()
 {
 
 }
+
+void Cooler_UI::on_windUpButton_clicked()
+{
+
+}
+
+void Cooler_UI::on_windDownButton_clicked()
+{
+
+}

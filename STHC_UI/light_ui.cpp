@@ -24,3 +24,18 @@ void Light_UI::changeEvent(QEvent *e)
         break;
     }
 }
+
+void Light_UI::on_powerButton_clicked()
+{
+
+}
+
+void Light_UI::on_brightUpButton_clicked()
+{
+
+}
+
+void Light_UI::on_brightDownButton_clicked()
+{
+
+}

@@ -18,6 +18,11 @@ protected:
 
 private:
     Ui::Refrigerator_UI *m_ui;
+
+private slots:
+    void on_tempDownButton_clicked();
+    void on_tempUpButton_clicked();
+    void on_powerButton_clicked();
 };
 
 #endif // REFRIGERATOR_UI_H
