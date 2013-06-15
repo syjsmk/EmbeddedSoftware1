@@ -5,8 +5,11 @@ TARGET = STHC_UI
 TEMPLATE = app
 SOURCES += main.cpp \
     tv_ui.cpp \
-    ceselector_ui.cpp
+    ceselector_ui.cpp \
+    cooler_ui.cpp
 HEADERS += tv_ui.h \
-    ceselector_ui.h
+    ceselector_ui.h \
+    cooler_ui.h
 FORMS += tv_ui.ui \
-    ceselector_ui.ui
+    ceselector_ui.ui \
+    cooler_ui.ui
