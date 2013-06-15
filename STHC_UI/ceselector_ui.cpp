@@ -3,24 +3,14 @@
 
 CESelector_UI::CESelector_UI(QWidget *parent) :
     QMainWindow(parent),
-    m_ui(new Ui::CESelector_UI)
+    ui(new Ui::CESelector_UI)
 {
-    m_ui->setupUi(this);
+    ui->setupUi(this);
+    // 여기 내부에서 connect 써야 할 것 같음.
+    // http://stackoverflow.com/questions/5027406/how-to-move-to-another-window-in-qt-by-a-pushbutton
 }
 
 CESelector_UI::~CESelector_UI()
 {
-    delete m_ui;
-}
-
-void CESelector_UI::changeEvent(QEvent *e)
-{
-    QMainWindow::changeEvent(e);
-    switch (e->type()) {
-    case QEvent::LanguageChange:
-        m_ui->retranslateUi(this);
-        break;
-    default:
-        break;
-    }
+    delete ui;
 }

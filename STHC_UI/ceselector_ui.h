@@ -13,11 +13,8 @@ public:
     CESelector_UI(QWidget *parent = 0);
     ~CESelector_UI();
 
-protected:
-    void changeEvent(QEvent *e);
-
 private:
-    Ui::CESelector_UI *m_ui;
+    Ui::CESelector_UI *ui;
 };
 
 #endif // CESELECTOR_UI_H
