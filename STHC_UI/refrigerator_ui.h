@@ -19,6 +19,9 @@ protected:
 private:
     Ui::Refrigerator_UI *m_ui;
 
+    int power;
+    int temperature;
+
 private slots:
     void on_tempDownButton_clicked();
     void on_tempUpButton_clicked();

@@ -19,6 +19,10 @@ public:
 private:
     Ui::TV_UI *ui;
 
+    bool power;
+    int channel;
+    int volume;
+
 private slots:
     void on_volDownButton_clicked();
     void on_volUpButton_clicked();

@@ -19,6 +19,9 @@ protected:
 private:
     Ui::Light_UI *m_ui;
 
+    int power;
+    int brightness;
+
 private slots:
     void on_brightDownButton_clicked();
     void on_brightUpButton_clicked();

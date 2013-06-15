@@ -19,6 +19,10 @@ protected:
 private:
     Ui::Heater_UI *m_ui;
 
+    bool power;
+    int temperature;
+    int wind;
+
 private slots:
     void on_powerButton_clicked();
     void on_tempDownButton_clicked();

@@ -19,6 +19,10 @@ protected:
 private:
     Ui::Cooler_UI *m_ui;
 
+    bool power;
+    int temperature;
+    int wind;
+
 private slots:
     void on_windDownButton_clicked();
     void on_windUpButton_clicked();
