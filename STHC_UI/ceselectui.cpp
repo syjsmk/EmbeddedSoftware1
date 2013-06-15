@@ -1,4 +1,4 @@
-#include "tv_ui.h"
+#include "cese"
 #include "ui_tv_ui.h"
 
 TV_UI::TV_UI(QWidget *parent)

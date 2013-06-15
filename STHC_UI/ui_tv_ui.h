@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'tv_ui.ui'
 **
-** Created: Thu Jun 13 14:33:36 2013
+** Created: Thu Jun 13 15:40:11 2013
 **      by: Qt User Interface Compiler version 4.3.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -58,7 +58,7 @@ public:
     {
     if (TV_UI->objectName().isEmpty())
         TV_UI->setObjectName(QString::fromUtf8("TV_UI"));
-    TV_UI->resize(606, 404);
+    TV_UI->resize(600, 400);
     centralWidget = new QWidget(TV_UI);
     centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
     horizontalLayoutWidget = new QWidget(centralWidget);
@@ -171,7 +171,7 @@ public:
     TV_UI->setCentralWidget(centralWidget);
     menuBar = new QMenuBar(TV_UI);
     menuBar->setObjectName(QString::fromUtf8("menuBar"));
-    menuBar->setGeometry(QRect(0, 0, 606, 23));
+    menuBar->setGeometry(QRect(0, 0, 600, 23));
     TV_UI->setMenuBar(menuBar);
     mainToolBar = new QToolBar(TV_UI);
     mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));

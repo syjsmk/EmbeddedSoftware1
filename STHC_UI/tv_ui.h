@@ -18,6 +18,13 @@ public:
 
 private:
     Ui::TV_UI *ui;
+
+private slots:
+    void on_volDownButton_clicked();
+    void on_volUpButton_clicked();
+    void on_chDownButton_clicked();
+    void on_chUpButton_clicked();
+    void on_powerButton_clicked();
 };
 
 #endif // TV_UI_H

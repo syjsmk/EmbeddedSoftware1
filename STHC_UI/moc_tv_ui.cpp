@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'tv_ui.h'
 **
-** Created: Thu Jun 13 14:34:02 2013
+** Created: Thu Jun 13 15:07:08 2013
 **      by: The Qt Meta Object Compiler version 59 (Qt 4.3.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -22,15 +22,26 @@ static const uint qt_meta_data_TV_UI[] = {
        1,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       5,   10, // methods
        0,    0, // properties
        0,    0, // enums/sets
+
+ // slots: signature, parameters, type, tag, flags
+       7,    6,    6,    6, 0x08,
+      34,    6,    6,    6, 0x08,
+      59,    6,    6,    6, 0x08,
+      85,    6,    6,    6, 0x08,
+     109,    6,    6,    6, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_TV_UI[] = {
-    "TV_UI\0"
+    "TV_UI\0\0on_volDownButton_clicked()\0"
+    "on_volUpButton_clicked()\0"
+    "on_chDownButton_clicked()\0"
+    "on_chUpButton_clicked()\0"
+    "on_powerButton_clicked()\0"
 };
 
 const QMetaObject TV_UI::staticMetaObject = {
@@ -56,5 +67,15 @@ int TV_UI::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        switch (_id) {
+        case 0: on_volDownButton_clicked(); break;
+        case 1: on_volUpButton_clicked(); break;
+        case 2: on_chDownButton_clicked(); break;
+        case 3: on_chUpButton_clicked(); break;
+        case 4: on_powerButton_clicked(); break;
+        }
+        _id -= 5;
+    }
     return _id;
 }
