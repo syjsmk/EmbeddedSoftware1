@@ -24,3 +24,13 @@ void Heater_UI::changeEvent(QEvent *e)
         break;
     }
 }
+
+void Heater_UI::on_windUpButton_clicked()
+{
+
+}
+
+void Heater_UI::on_windDownButton_clicked()
+{
+
+}

@@ -18,6 +18,10 @@ protected:
 
 private:
     Ui::Heater_UI *m_ui;
+
+private slots:
+    void on_windDownButton_clicked();
+    void on_windUpButton_clicked();
 };
 
 #endif // HEATER_UI_H
