@@ -19,7 +19,8 @@ HEADERS += tv_ui.h \
     refrigerator_ui.h \
     light_ui.h \
     iointerface.h \
-    hmmanager.h
+    hmmanager.h \
+    ce.h
 FORMS += tv_ui.ui \
     ceselector_ui.ui \
     cooler_ui.ui \
