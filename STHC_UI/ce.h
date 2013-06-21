@@ -1,6 +1,8 @@
+
+
 #include <QUdpSocket>
 
-struct CE
+typedef struct CE
 {
     int type;
     bool power;

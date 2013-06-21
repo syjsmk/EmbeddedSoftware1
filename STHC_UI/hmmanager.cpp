@@ -22,6 +22,7 @@ void HMManager::getCeBuffer()
 {
     //ioInterface->getCeBuffer(); //TODO : list에 넣는 코드
     qDebug() << "FUCK";
-    qDebug() << ioInterface->getCeBuffer()->toString();
+    //qDebug() << ioInterface->getCeBuffer()->toString();
+
 
 }

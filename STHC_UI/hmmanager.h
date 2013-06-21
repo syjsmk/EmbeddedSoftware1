@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <list>
-#include "ce.h"
 
 
 #include "iointerface.h"

@@ -16,6 +16,7 @@ IoInterface::IoInterface()
 IoInterface::~IoInterface()
 {
     delete(socket);
+    delete this->CeBuffer;
 }
 
 QBitArray bytesToBits(QByteArray bytes) {
@@ -57,17 +58,21 @@ void IoInterface::listenBroadcast()
 
     QHostAddress addr;
     quint16 port;
+    //this->CeBuffer = new CE();
 
 
     if(socket->pendingDatagramSize() != -1){
         qDebug() << socket->pendingDatagramSize();
         socket->readDatagram(buffer.data(), buffer.size(), &addr, &port);
 
+
         QDataStream stream(buffer);
         qDebug() << "data = " << buffer.data() << " = " << buffer.toHex() << " addr : " << addr.toString() << " port : " << port << "size = " << buffer.count();
-        CeBuffer = &addr;
+        //CeBuffer = &addr;
         // signal
         emit getCeBufferSignal();
+
+        this->CeBuffer = makeCeStruct(addr, port);
 
         switch(buffer.count())
         {
@@ -100,7 +105,34 @@ void IoInterface::listenBroadcast()
 }
 
 
-QHostAddress* IoInterface::getCeBuffer()
+//QHostAddress* IoInterface::getCeBuffer()
+struct CE* IoInterface::getCeBuffer()
 {
     return this->CeBuffer;
+    //return this->CeBuffer;
+}
+
+struct CE* IoInterface::makeCeStruct(QHostAddress addr, quint16 port)
+{
+    struct CE *CeBuff = new CE();
+    /*
+    TODO : 내부에서 addr, port, makeMessage를 이용해
+    broadcast를 보낸 기기에 getMessage를 만들어서 보내서
+    CE의 정보를 받아서 받아온 값들을 이용해 CeBuff의 값을 채워줘야 한다.
+       */
+
+    return CeBuff;
+}
+
+// TODO :  이하의 함수들 구현해야 할 것. 반환형, 인자는 수정해도 상관 없음.
+void IoInterface::makeMessage()
+{
+}
+
+void IoInterface::sendMessage()
+{
+}
+
+void IoInterface::recvMessage()
+{
 }
