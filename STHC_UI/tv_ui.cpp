@@ -5,8 +5,11 @@ TV_UI::TV_UI(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::TV_UI)
 {
     ui->setupUi(this);
-    this->netMgr = new IoInterface();
-    netMgr->broadcast();
+    //this->netMgr = new IoInterface();
+    //netMgr->broadcast();
+
+    this->hmmanager = new HMManager();
+    this->hmmanager->listenBroadcast();
 
 }
 

@@ -19,7 +19,7 @@ private :
     QUdpSocket *socket;
 
 public slots:
-  void broadcast();
+  void listenBroadcast();
 };
 
 #endif // IOINTERFACE_H

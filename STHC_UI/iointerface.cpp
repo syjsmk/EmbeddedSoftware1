@@ -9,7 +9,8 @@ IoInterface::IoInterface()
         qDebug() << "bind success";
     }
 
-    connect( socket, SIGNAL(readyRead()), this, SLOT(broadcast()) );
+    connect( socket, SIGNAL(readyRead()), this, SLOT(listenBroadcast()) );
+    //connect(socket, SIGNAL(readyRead()), this, SLOT(listenBroadcast(list*)));
 }
 
 IoInterface::~IoInterface()
@@ -42,7 +43,9 @@ QByteArray bitsToBytes(QBitArray bits) {
     return bytes;
 }
 
-void IoInterface::broadcast()
+
+void IoInterface::listenBroadcast()
+//void IoInterface::listenBroadcast(list *outParamList)
 {
     QBitArray bits;
     qDebug() << "broadCast()";

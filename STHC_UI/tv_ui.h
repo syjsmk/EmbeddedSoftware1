@@ -6,6 +6,8 @@
 #include <QUdpSocket>
 #include "iointerface.h"
 
+#include "hmmanager.h"
+
 namespace Ui
 {
     class TV_UI;
@@ -32,6 +34,7 @@ private:
     int volume;
 
     IoInterface *netMgr;
+    HMManager *hmmanager;
 
 private slots:
     void on_volDownButton_clicked();
