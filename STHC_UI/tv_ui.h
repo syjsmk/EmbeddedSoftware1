@@ -19,6 +19,8 @@ public:
 private:
     Ui::TV_UI *ui;
 
+    // 변수들 초기화 하려면
+    // 패킷 받아서 그 값으로 해야 함.
     bool power;
     int channel;
     int volume;
