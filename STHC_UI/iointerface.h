@@ -8,6 +8,10 @@
 
 #include "ce.h"
 
+// TODO : 얘네 다른 파일에 일괄적으로 정의해야 할 필요 있을듯 함
+#define MESSAGE_OPTION_GET  'b'
+#define ATTRIBUTE_POWER         'c'
+
 
 // TODO : 여기 내부에 ioctl, udp 관련 코드 들어가야 함.
 
@@ -28,10 +32,10 @@ private :
 public:
     //QHostAddress *getCeBuffer();
     struct CE *getCeBuffer();
-    struct CE* makeCeStruct(QHostAddress addr, quint16 port);
+    struct CE* makeCeStruct(char deviceType, QHostAddress addr, quint16 port);
 
-    void makeMessage();
-    void sendMessage();
+    int makeMessage(char deviceType, char messageType, char attributeType, QHostAddress addr, quint16 port);
+    void sendMessage(int message, QHostAddress addr, quint16 port);
     void recvMessage();
 
 public slots:

@@ -72,7 +72,10 @@ void IoInterface::listenBroadcast()
         // signal
         emit getCeBufferSignal();
 
-        this->CeBuffer = makeCeStruct(addr, port);
+        //TODO : 브로드캐스트 메시지에서 값 받아와서 얘 채워줘야 함
+        char deviceType = 'a';
+
+        this->CeBuffer = makeCeStruct(deviceType, addr, port);
 
         switch(buffer.count())
         {
@@ -112,9 +115,14 @@ struct CE* IoInterface::getCeBuffer()
     //return this->CeBuffer;
 }
 
-struct CE* IoInterface::makeCeStruct(QHostAddress addr, quint16 port)
+struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16 port)
 {
     struct CE *CeBuff = new CE();
+
+
+
+    int message = makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_POWER, addr, port);
+    sendMessage(message, addr, port);
     /*
     TODO : 내부에서 addr, port, makeMessage를 이용해
     broadcast를 보낸 기기에 getMessage를 만들어서 보내서
@@ -125,14 +133,17 @@ struct CE* IoInterface::makeCeStruct(QHostAddress addr, quint16 port)
 }
 
 // TODO :  이하의 함수들 구현해야 할 것. 반환형, 인자는 수정해도 상관 없음.
-void IoInterface::makeMessage()
+int IoInterface::makeMessage(char deviceType, char messageType, char attributeType, QHostAddress addr, quint16 port)
 {
 }
 
-void IoInterface::sendMessage()
+void IoInterface::sendMessage(int message, QHostAddress addr, quint16 port)
 {
+    //this->socket->writeDatagram()
 }
 
+// TODO : get메시지에 대한 패킷은 broadcast가 아니라 unicast니까 위의 리스너가 받지 못함.
+// TODO : 동적으로 소켓을 생성해야 한다고 함. 또 connect 써야 함.
 void IoInterface::recvMessage()
 {
 }
