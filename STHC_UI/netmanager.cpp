@@ -8,7 +8,7 @@ netManager::netManager()
         qDebug() << "bind success";
     }
 
-    connect( socket, SIGNAL(readReady()), this, SLOT(broadcast()) );
+    connect( socket, SIGNAL(readyRead()), this, SLOT(broadcast()) );
 }
 
 netManager::~netManager()
@@ -20,6 +20,9 @@ void netManager::broadcast()
 {
 
     qDebug() << "broadCast()";
-    qDebug() << socket->pendingDatagramSize();
+    if(socket->pendingDatagramSize() != -1){
+        qDebug() << socket->pendingDatagramSize();
+    }
+
 
 }
