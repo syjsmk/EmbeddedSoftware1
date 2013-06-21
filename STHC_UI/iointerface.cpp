@@ -77,6 +77,22 @@ void IoInterface::listenBroadcast()
 
         this->CeBuffer = makeCeStruct(deviceType, addr, port);
 
+        // writeDiagram 참고 코드
+        //00421000
+        QByteArray sendTemp;
+        sendTemp.resize(4);
+        sendTemp.clear();
+        sendTemp.append((char)0x00);
+        sendTemp.append((char)0x42);
+        sendTemp.append((char)0x10);
+        sendTemp.append((char)0x00);
+
+        qDebug() << sendTemp.toHex();
+
+        port = 1106;
+        socket->writeDatagram(sendTemp, addr, port);
+
+
         switch(buffer.count())
         {
             case 2:
@@ -143,7 +159,7 @@ void IoInterface::sendMessage(int message, QHostAddress addr, quint16 port)
 }
 
 // TODO : get메시지에 대한 패킷은 broadcast가 아니라 unicast니까 위의 리스너가 받지 못함.
-// TODO : 동적으로 소켓을 생성해야 한다고 함. 또 connect 써야 함.
+// TODO : 동적으로 소켓을 생성해야 한다고 함. 또 connect 써야 함. unicast용 소켓은 1106이 아니라 다른걸 써서 받아야 함.
 void IoInterface::recvMessage()
 {
 }
