@@ -20,8 +20,15 @@ void netManager::broadcast()
 {
 
     qDebug() << "broadCast()";
+    QByteArray buffer(socket->pendingDatagramSize(), 0);
+
+
     if(socket->pendingDatagramSize() != -1){
         qDebug() << socket->pendingDatagramSize();
+        socket->readDatagram(buffer.data(), buffer.size());
+
+        QDataStream stream(buffer);
+        qDebug() << "data = " << buffer.data() << " = " << hex << buffer.data();
     }
 
 
