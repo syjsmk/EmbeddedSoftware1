@@ -28,7 +28,7 @@ void netManager::broadcast()
         socket->readDatagram(buffer.data(), buffer.size());
 
         QDataStream stream(buffer);
-        qDebug() << "data = " << buffer.data() << " = " << hex << buffer.data();
+        qDebug() << "data = " << buffer.data() << " = " << buffer.toHex();
     }
 
 
