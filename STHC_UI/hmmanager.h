@@ -1,26 +1,35 @@
 #ifndef HMMANAGER_H
 #define HMMANAGER_H
 
+#include <QObject>
 #include <list>
 #include "ce.h"
+
 
 #include "iointerface.h"
 
 using namespace std;
 
-class HMManager
+class HMManager : public QObject
+//class HMManager
 {
+    Q_OBJECT
+
 public:
     HMManager();
     ~HMManager();
 
 private:
+    //QList
     list<CE> ceList;
 
     IoInterface *ioInterface;
 
 public:
     void listenBroadcast();
+
+public slots:
+    void getCeBuffer();
 };
 
 #endif // HMMANAGER_H

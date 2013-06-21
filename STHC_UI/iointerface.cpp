@@ -65,6 +65,9 @@ void IoInterface::listenBroadcast()
 
         QDataStream stream(buffer);
         qDebug() << "data = " << buffer.data() << " = " << buffer.toHex() << " addr : " << addr.toString() << " port : " << port << "size = " << buffer.count();
+        CeBuffer = &addr;
+        // signal
+        emit getCeBufferSignal();
 
         switch(buffer.count())
         {
@@ -94,4 +97,10 @@ void IoInterface::listenBroadcast()
                 break;
         }
     }
+}
+
+
+QHostAddress* IoInterface::getCeBuffer()
+{
+    return this->CeBuffer;
 }

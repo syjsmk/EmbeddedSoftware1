@@ -18,8 +18,18 @@ public:
 private :
     QUdpSocket *socket;
 
+    QHostAddress *CeBuffer;
+
+public:
+    QHostAddress *getCeBuffer();
+
 public slots:
   void listenBroadcast();
+
+
+  signals:
+    void getCeBufferSignal();
+
 };
 
 #endif // IOINTERFACE_H
