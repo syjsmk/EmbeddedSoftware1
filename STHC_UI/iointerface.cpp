@@ -21,14 +21,18 @@ void IoInterface::broadcast()
 
     qDebug() << "broadCast()";
     QByteArray buffer(socket->pendingDatagramSize(), 0);
+    QHostAddress addr;
+    quint16 port;
+    
 
 
     if(socket->pendingDatagramSize() != -1){
         qDebug() << socket->pendingDatagramSize();
-        socket->readDatagram(buffer.data(), buffer.size());
+        socket->readDatagram(buffer.data(), buffer.size(), &addr, &port);
+
 
         QDataStream stream(buffer);
-        qDebug() << "data = " << buffer.data() << " = " << buffer.toHex();
+        qDebug() << "data = " << buffer.data() << " hex = " << buffer.toHex() << " addr : " << addr.toString() << " port : " << port;
     }
 
 

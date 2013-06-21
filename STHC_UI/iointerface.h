@@ -3,6 +3,9 @@
 
 #include <QUdpSocket>
 #include <QObject>
+#include <QBitArray>
+
+// TODO : 여기 내부에 ioctl, udp 관련 코드 들어가야 함.
 
 class IoInterface : public QObject
 
