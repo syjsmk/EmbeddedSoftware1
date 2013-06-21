@@ -2,12 +2,20 @@
 
 netManager::netManager()
 {
+    /*
     socket = new QUdpSocket();
-    socket->bind(1106);
+
+    if(socket->bind(1106)) {
+        qDebug() << "bind success";
+    }
     connect( socket, SIGNAL(readReady()), this, SLOT(broadcast()) );
+    */
 }
 
 void netManager::broadcast()
 {
-
+    /*
+    qDebug() << "broadCast()";
+    qDebug() << socket->pendingDatagramSize();
+    */
 }

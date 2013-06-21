@@ -14,7 +14,7 @@ public:
 private :
     QUdpSocket *socket;
 
-private slots:
+public slots:
   void broadcast();
 };
 

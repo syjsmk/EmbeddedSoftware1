@@ -3,9 +3,13 @@
 
 #include <QtGui/QMainWindow>
 
+#include "netmanager.h"
+
 namespace Ui {
     class Refrigerator_UI;
 }
+
+using namespace std;
 
 class Refrigerator_UI : public QMainWindow {
     Q_OBJECT
@@ -21,6 +25,8 @@ private:
 
     int power;
     int temperature;
+
+    netManager netMgr;
 
 private slots:
     void on_tempDownButton_clicked();

@@ -3,6 +3,9 @@
 
 #include <QtGui/QMainWindow>
 
+#include <QUdpSocket>
+#include "netmanager.h"
+
 namespace Ui
 {
     class TV_UI;
@@ -25,12 +28,17 @@ private:
     int channel;
     int volume;
 
+    netManager *netMgr;
+    QUdpSocket *socket;
+
 private slots:
     void on_volDownButton_clicked();
     void on_volUpButton_clicked();
     void on_chDownButton_clicked();
     void on_chUpButton_clicked();
     void on_powerButton_clicked();
+
+    void temp();
 };
 
 #endif // TV_UI_H
