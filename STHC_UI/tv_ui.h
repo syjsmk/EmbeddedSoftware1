@@ -29,7 +29,6 @@ private:
     int volume;
 
     netManager *netMgr;
-    QUdpSocket *socket;
 
 private slots:
     void on_volDownButton_clicked();
@@ -38,7 +37,6 @@ private slots:
     void on_chUpButton_clicked();
     void on_powerButton_clicked();
 
-    void temp();
 };
 
 #endif // TV_UI_H

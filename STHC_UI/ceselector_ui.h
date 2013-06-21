@@ -19,11 +19,6 @@ public:
 private:
     Ui::CESelector_UI *ui;
 
-    QUdpSocket *sock;
-    netManager *netMgr;
-
-    private slots:
-    void temp();
 };
 
 #endif // CESELECTOR_UI_H

@@ -10,6 +10,7 @@ class netManager : public QObject
     Q_OBJECT
 public:
     netManager();
+    ~netManager();
 
 private :
     QUdpSocket *socket;

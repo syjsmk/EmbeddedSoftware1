@@ -8,25 +8,12 @@ TV_UI::TV_UI(QWidget *parent)
     this->netMgr = new netManager();
     netMgr->broadcast();
 
-    this->socket = new QUdpSocket();
-
-    if(socket->bind(1106)) {
-        qDebug() << "bind success (TV_UI)";
-    }
-
-    connect(this->socket, SIGNAL(readyRead()), this, SLOT(temp()));
 }
 
 TV_UI::~TV_UI()
 {
     delete ui;
 
-}
-
-void TV_UI::temp()
-{
-    qDebug() << "temp";
-    qDebug() << socket->pendingDatagramSize();
 }
 
 void TV_UI::on_powerButton_clicked()

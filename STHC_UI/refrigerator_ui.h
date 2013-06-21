@@ -26,7 +26,6 @@ private:
     int power;
     int temperature;
 
-    netManager netMgr;
 
 private slots:
     void on_tempDownButton_clicked();
