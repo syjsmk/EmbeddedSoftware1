@@ -3,7 +3,7 @@
 
 #include <QtGui/QMainWindow>
 
-#include "netmanager.h"
+#include "iointerface.h"
 
 namespace Ui {
     class Refrigerator_UI;

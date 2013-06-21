@@ -4,12 +4,15 @@
 #include <QtGui/QMainWindow>
 
 #include <QUdpSocket>
-#include "netmanager.h"
+#include "iointerface.h"
 
 namespace Ui
 {
     class TV_UI;
 }
+
+// TODO : 여기서 직접 IoInterface 쓰지 말고
+// HMManager 통해서 접근하게 수정할 것
 
 class TV_UI : public QMainWindow
 {
@@ -28,7 +31,7 @@ private:
     int channel;
     int volume;
 
-    netManager *netMgr;
+    IoInterface *netMgr;
 
 private slots:
     void on_volDownButton_clicked();

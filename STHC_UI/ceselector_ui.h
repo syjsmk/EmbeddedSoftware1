@@ -4,7 +4,7 @@
 #include <QtGui/QMainWindow>
 #include <QUdpSocket>
 
-#include "netmanager.h"
+#include "iointerface.h"
 
 namespace Ui {
     class CESelector_UI;
