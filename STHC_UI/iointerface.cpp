@@ -121,6 +121,8 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
 {
     qDebug() << deviceType << "   hex :    " << deviceType;
     struct CE *CeBuff = new CE();
+
+    CeBuff->type = deviceType;
     QUdpSocket *sock = new QUdpSocket();
     quint16 _port = 0;
 
@@ -175,7 +177,7 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     QByteArray message;
     message.resize(4);
     message.clear();
-    port = 1106;
+    //port = 1106;
 
     //CeBuff->type = deviceType;
     //CeBuff->type = getDeviceTypeFromMessage(message);
@@ -185,18 +187,33 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     // 0x02 <Light> 2개
     // 0x03 <Heater> 3개
     // 0x04 <Cooler> 3개
+
+
     switch(deviceType)
     {
         case 0x00:
 
+        /*
+        for(int i = 0; i < 3; i ++)
+        {
+            message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, attributeType, (char)0x00);
+            sendMessage(CeBuff->socket, message, addr, port);
+            attributeType ++;
+        }
+        */
+        this->sendGetMessageEachAttribute(CeBuff, 3);
         break;
         case 0x01:
+        this->sendGetMessageEachAttribute(CeBuff, 2);
         break;
         case 0x02:
+        this->sendGetMessageEachAttribute(CeBuff, 2);
         break;
         case 0x03:
+        this->sendGetMessageEachAttribute(CeBuff, 3);
         break;
         case 0x04:
+        this->sendGetMessageEachAttribute(CeBuff, 3);
         break;
         default:
         break;
@@ -222,9 +239,6 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
 
     }
     */
-
-
-    //socket->writeDatagram(message, addr, port);
 
     //TODO : 브로드캐스트 메시지에서 값 받아와서 얘 채워줘야 함
     //char deviceType = 'a';
@@ -331,6 +345,20 @@ void IoInterface::recvMessage()
 
     }
 
+}
+
+void IoInterface::sendGetMessageEachAttribute(CE *ce, int attributeCount)
+{
+    qDebug() << "sendGetMessageEachAttribute";
+    QByteArray message;
+    char attributeType = ATTRIBUTE_FIRST;
+
+    for(int i = 0; i < attributeCount; i ++)
+        {
+            message = this->makeMessage(ce->type, MESSAGE_OPTION_GET, attributeType, (char)0x00);
+            sendMessage(ce->socket, message, ce->addr, 1106);
+            attributeType ++;
+        }
 }
 
 void IoInterface::printCEInfo(CE ce)

@@ -34,6 +34,7 @@ private :
     char getOperationTypeFromMessage(QByteArray message);
     char getOperationFromMessage(QByteArray message);
     char getOperandFromMessage(QByteArray message);
+    void sendGetMessageEachAttribute(CE *ce, int attributeCount);
 
 public:
     //QHostAddress *getCeBuffer();
