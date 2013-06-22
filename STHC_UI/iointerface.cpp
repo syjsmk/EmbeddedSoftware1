@@ -163,6 +163,7 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     CeBuff->addr = addr;
     qDebug() << "makeCeStruct addr : " << addr.toString();
 
+    CeBuff->firstAttr = 0x01;
     QString t;
     t.sprintf("first Attr : %x", CeBuff->firstAttr);
     qDebug() << t;
@@ -285,6 +286,10 @@ void IoInterface::recvMessage()
 {
     qDebug() << "recvMessage()";
     qDebug() << CeBuffer->addr.toString();
+    QString t;
+    t.sprintf("first Attr : %x", CeBuffer->firstAttr);
+    qDebug() << t;
+
 
     if(CeBuffer->socket->pendingDatagramSize() > 0)
     {
