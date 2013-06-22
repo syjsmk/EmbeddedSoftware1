@@ -21,8 +21,10 @@ void HMManager::listenBroadcast()
 void HMManager::getCeBuffer()
 {
     bool isContain = false;
+    /*
     qDebug() << "HMManager getCeBuffer";
     qDebug() << ioInterface->getCeBuffer()->addr.toString();
+    */
 
 
     CE ce;
@@ -50,6 +52,25 @@ void HMManager::getCeBuffer()
     qDebug() << "ceList size : " << this->ceList.size();
 
     ioInterface->sendMessage(ioInterface->getCeBuffer()->socket, 0x00, ioInterface->getCeBuffer()->addr, 1106);
+
+
+}
+
+
+//void HMManager::sendMessage(QByteArray message)
+void HMManager::sendMessage()
+{
+    qDebug() << "sendMessage in HM";
+    CE ce;
+    QByteArray message;
+    message = this->ioInterface->makeMessage((char)0x03, MESSAGE_OPTION_GET, ATTRIBUTE_FIRST, (char)0x00);
+    ioInterface->printMessageInfo(message);
+    foreach(ce, ceList)
+    {
+        this->ioInterface->sendMessage(ce.socket, message, ce.addr, 1106);
+    }
+
+
 
 
 }

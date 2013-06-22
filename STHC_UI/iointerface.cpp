@@ -1,6 +1,8 @@
 #include "iointerface.h"
 #include <QBitArray>
 
+// TODO : recvManager 호출 횟수가 하나씩 늘어남. 뭐가 문제인가
+
 IoInterface::IoInterface()
 {
     socket = new QUdpSocket(this);
@@ -59,8 +61,6 @@ void IoInterface::listenBroadcast()
     QHostAddress addr;
     quint16 port;
 
-
-
     if(socket->pendingDatagramSize() != -1){
         qDebug() << socket->pendingDatagramSize();
         socket->readDatagram(buffer.data(), buffer.size(), &addr, &port);
@@ -70,7 +70,6 @@ void IoInterface::listenBroadcast()
         //CeBuffer = &addr;
         // signal
         device.append(buffer.at(0)&0xFF);
-
 
         qDebug() << "device : " << device.data() << "    hex : " << device.toHex();
 
@@ -155,7 +154,7 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     qDebug() << "makeCeStruct addr : " << addr.toString();
 
     connect(CeBuff->socket, SIGNAL(readyRead()), this, SLOT(recvMessage()));
-    qDebug() << QObject::sender();
+
 
  // writeDiagram 참고 코드
     //00421000  set 2번Attr 16
@@ -163,21 +162,23 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     QByteArray message;
     message.resize(4);
     message.clear();
-
-    //message = this->makeMessage(0x00, MESSAGE_OPTION_SET, ATTRIBUTE_TEMPERATURE, (char)0x10);
-    message = this->makeMessage(deviceType, MESSAGE_OPTION_SET, ATTRIBUTE_TEMPERATURE, (char)0x10);
-
-    qDebug() << message.toHex();
-
     port = 1106;
+
+    /*
+    //message = this->makeMessage(0x00, MESSAGE_OPTION_SET, ATTRIBUTE_TEMPERATURE, (char)0x10);
+    message = this->makeMessage(deviceType, MESSAGE_OPTION_SET, ATTRIBUTE_SECOND, (char)0x10);
+
     socket->writeDatagram(message, addr, port);
 
     //message = this->makeMessage(0x00, MESSAGE_OPTION_GET, ATTRIBUTE_TEMPERATURE, (char)0x00);
-    message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_TEMPERATURE, (char)0x00);
+    message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_SECOND, (char)0x00);
     sendMessage(CeBuff->socket, message, addr, port);
-    qDebug() << message.toHex();
 
-    printDevice(deviceType);
+    printMessageInfo(message);
+    */
+
+    //CeBuff->type = deviceType;
+    //CeBuff->type = getDeviceTypeFromMessage(message);
 
     switch(deviceType)
     {
@@ -196,21 +197,26 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
         break;
     }
 
+    /*
     if(deviceType == 0x03) {
         qDebug() << "0x03 --------------------------------------------------";
 
-        message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_POWER, (char)0x00);
+        message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_FIRST, (char)0x00);
+        printMessageInfo(message);
         sendMessage(CeBuff->socket, message, addr, port);
-        qDebug() << message.toHex();
 
-        message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_TEMPERATURE, (char)0x00);
-        sendMessage(CeBuff->socket, message, addr, port);
-        qDebug() << message.toHex();
 
-        message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_WIND, (char)0x00);
+        message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_SECOND, (char)0x00);
+        printMessageInfo(message);
         sendMessage(CeBuff->socket, message, addr, port);
-        qDebug() << message.toHex();
+
+
+        message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_THIRD, (char)0x00);
+        printMessageInfo(message);
+        sendMessage(CeBuff->socket, message, addr, port);
+
     }
+    */
 
 
     //socket->writeDatagram(message, addr, port);
@@ -272,17 +278,28 @@ void IoInterface::sendMessage(QUdpSocket *socket, QByteArray message, QHostAddre
 void IoInterface::recvMessage()
 {
     qDebug() << "recvMessage()";
-    qDebug() << "CeBuffer->addr : " << CeBuffer->addr.toString();
-    qDebug() << "datagramSize : " << CeBuffer->socket->pendingDatagramSize();
 
-    QByteArray buffer(CeBuffer->socket->pendingDatagramSize(), 0);
+    if(CeBuffer->socket->pendingDatagramSize() > 0)
+    {
+        qDebug() << "datagramSize : " << CeBuffer->socket->pendingDatagramSize();
+        QByteArray buffer(CeBuffer->socket->pendingDatagramSize(), 0);
 
-    QObject *sender = const_cast<QObject*>(QObject::sender());
-    QUdpSocket *sock = static_cast<QUdpSocket*>(sender);
-    sock->readDatagram(buffer.data(), buffer.size());
-    qDebug() << "bufferData : " << buffer.toHex();
+        QObject *sender = const_cast<QObject*>(QObject::sender());
+        QUdpSocket *sock = static_cast<QUdpSocket*>(sender);
+        sock->readDatagram(buffer.data(), buffer.size());
 
-    //this->CeBuffer
+        /*
+        char operation = buffer.at(1) & 0x0F;
+        qDebug() << "operand : " << (buffer.at(1) & 0x0F);
+        */
+        printMessageInfo(buffer);
+/*
+        getDeviceTypeFromMessage(buffer);
+        getOperationTypeFromMessage(buffer);
+        getOperationFromMessage(buffer);
+        getOperandFromMessage(buffer);
+*/
+    }
 
 }
 
@@ -294,18 +311,174 @@ void IoInterface::printDevice(char deviceType)
             qDebug() << "Device <TV>";
         break;
         case 0x01:
-        qDebug() << "Device <Refrigerator>";
+            qDebug() << "Device <Refrigerator>";
         break;
         case 0x02:
-        qDebug() << "Device <Light>";
+            qDebug() << "Device <Light>";
         break;
         case 0x03:
-        qDebug() << "Device <Heater>";
+            qDebug() << "Device <Heater>";
         break;
         case 0x04:
-        qDebug() << "Device <Cooler>";
+            qDebug() << "Device <Cooler>";
         break;
         default:
         break;
     }
+}
+
+void IoInterface::printMessageInfo(QByteArray message)
+{
+    qDebug() << "printMessageInfo";
+    QString temp;
+
+    char deviceType = (message.at(0) & 0xff);
+    switch(deviceType)
+    {
+        case 0x00:
+            qDebug() << "Device <TV>";
+        break;
+        case 0x01:
+            qDebug() << "Device <Refrigerator>";
+        break;
+        case 0x02:
+            qDebug() << "Device <Light>";
+        break;
+        case 0x03:
+            qDebug() << "Device <Heater>";
+        break;
+        case 0x04:
+            qDebug() << "Device <Cooler>";
+        break;
+        default:
+        break;
+    }
+
+    // 0x00 0x40 0x80 0xC0
+    char operationType = (message.at(1) & 0xf0);
+    switch(operationType)
+    {
+        case 0x00:
+            qDebug() << "operation <broadcast>";
+        break;
+        case 0x40:
+            qDebug() << "operation <set>";
+        break;
+        case 0x80:
+            qDebug() << "operation <get>";
+        break;
+        case 0xc0:
+            qDebug() << "operation <res for get>";
+        break;
+        default:
+        break;
+    }
+
+    char operation = message.at(1) & 0x0F;
+
+    // 0x00, 0x01, 0x02, 0x03
+    switch(operation)
+    {
+        case 0x00:
+            qDebug() << "ATTR_0";
+        break;
+        case 0x01:
+            qDebug() << "ATTR_1";
+        break;
+        case 0x02:
+            qDebug() << "ATTR_2";
+        break;
+        case 0x03:
+            qDebug() << "ATTR_3";
+        break;
+        default:
+        break;
+    }
+
+    char operand = message.at(2) & 0xff;
+    qDebug() << operand;
+
+}
+
+char IoInterface::getDeviceTypeFromMessage(QByteArray message)
+{
+    char deviceType = (message.at(0) & 0xff);
+    switch(deviceType)
+    {
+        case 0x00:
+            qDebug() << "Device <TV>";
+        break;
+        case 0x01:
+            qDebug() << "Device <Refrigerator>";
+        break;
+        case 0x02:
+            qDebug() << "Device <Light>";
+        break;
+        case 0x03:
+            qDebug() << "Device <Heater>";
+        break;
+        case 0x04:
+            qDebug() << "Device <Cooler>";
+        break;
+        default:
+        break;
+    }
+    
+    return deviceType;
+}
+
+char IoInterface::getOperationTypeFromMessage(QByteArray message)
+{
+    // 0x00 0x40 0x80 0xC0
+    char operationType = (message.at(1) & 0xf0);
+    switch(operationType)
+    {
+        case 0x00:
+            qDebug() << "operation <broadcast>";
+        break;
+        case 0x40:
+            qDebug() << "operation <set>";
+        break;
+        case 0x80:
+            qDebug() << "operation <get>";
+        break;
+        case 0xc0:
+            qDebug() << "operation <res for get>";
+        break;
+        default:
+        break;
+    }
+
+    return operationType;
+}
+
+char IoInterface::getOperationFromMessage(QByteArray message)
+{
+    char operation = message.at(1) & 0x0F;
+
+    // 0x00, 0x01, 0x02, 0x03
+    switch(operation)
+    {
+        case 0x00:
+            qDebug() << "ATTR_0";
+        break;
+        case 0x01:
+            qDebug() << "ATTR_1";
+        break;
+        case 0x02:
+            qDebug() << "ATTR_2";
+        break;
+        case 0x03:
+            qDebug() << "ATTR_3";
+        break;
+        default:
+        break;
+    }
+    return operation;
+}
+
+char IoInterface::getOperandFromMessage(QByteArray message)
+{
+    char operand = message.at(2) & 0xff;
+    return operand;
 }

@@ -7,6 +7,7 @@ TV_UI::TV_UI(QWidget *parent)
     ui->setupUi(this);
     //this->netMgr = new IoInterface();
     //netMgr->broadcast();
+    qDebug() << "STARTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT";
 
     this->hmmanager = new HMManager();
     this->hmmanager->listenBroadcast();
@@ -21,11 +22,13 @@ TV_UI::~TV_UI()
 
 void TV_UI::on_powerButton_clicked()
 {
-
+    qDebug() << "powerButton clicked";
+    hmmanager->sendMessage();
 }
 
 void TV_UI::on_chUpButton_clicked()
 {
+    //hmmanager->sendMessage(
 
 }
 

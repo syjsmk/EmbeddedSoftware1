@@ -26,6 +26,8 @@ private:
 
 public:
     void listenBroadcast();
+    //void sendMessage(QByteArray message);
+    void sendMessage();
 
 public slots:
     void getCeBuffer();

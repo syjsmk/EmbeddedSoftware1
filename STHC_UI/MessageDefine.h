@@ -14,12 +14,9 @@ sendTemp.append((char)0x00);
 #define MESSAGE_OPTION_GET      0x80
 #define MESSAGE_OPTION_SET      0x40
 
-#define ATTRIBUTE_POWER             0x01
-#define ATTRIBUTE_TEMPERATURE   0x02
-#define ATTRIBUTE_BRIGHTNESS        0x02
-#define ATTRIBUTE_CHANNEL           0x02
-#define ATTRIBUTE_WIND               0x03
-#define ATTRIBUTE_VOLUME            0x03
+#define ATTRIBUTE_FIRST             0x01
+#define ATTRIBUTE_SECOND         0x02
+#define ATTRIBUTE_THIRD             0x03
 
 
 

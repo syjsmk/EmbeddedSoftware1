@@ -31,8 +31,15 @@ private :
     struct CE *CeBuffer;
     void printDevice(char deviceType);
 
+
+    char getDeviceTypeFromMessage(QByteArray message);
+    char getOperationTypeFromMessage(QByteArray message);
+    char getOperationFromMessage(QByteArray message);
+    char getOperandFromMessage(QByteArray message);
+
 public:
     //QHostAddress *getCeBuffer();
+    void printMessageInfo(QByteArray message);
     struct CE *getCeBuffer();
     struct CE* makeCeStruct(char deviceType, QHostAddress addr, quint16 port);
 
