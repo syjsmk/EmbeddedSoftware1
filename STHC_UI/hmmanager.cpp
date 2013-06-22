@@ -47,7 +47,7 @@ void HMManager::getCeBuffer()
 
     //this->ceList.append(*(ioInterface->getCeBuffer()));
 
-    qDebug() << "list size : " << this->ceList.size();
+    qDebug() << "ceList size : " << this->ceList.size();
 
     ioInterface->sendMessage(ioInterface->getCeBuffer()->socket, 0x00, ioInterface->getCeBuffer()->addr, 1106);
 

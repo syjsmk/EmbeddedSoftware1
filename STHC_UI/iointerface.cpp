@@ -113,8 +113,8 @@ void IoInterface::listenBroadcast()
 //QHostAddress* IoInterface::getCeBuffer()
 struct CE* IoInterface::getCeBuffer()
 {
-    qDebug() << "getCeBuffer";
-    qDebug() << CeBuffer->addr.toString();
+    //qDebug() << "getCeBuffer";
+    //qDebug() << CeBuffer->addr.toString();
     return this->CeBuffer;
 }
 
@@ -124,15 +124,11 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     struct CE *CeBuff = new CE();
     QUdpSocket *sock = new QUdpSocket();
 
-    // TODO : 이거 여기가 아니라 소켓 생성하는데서 할 것.
-    // socket과 ip의 map으로 저장해야 할 듯 함.
     if(ipSocketHashmap.size() == 0)
     {
         qDebug() << "hashMapSize zero";
         sock = new QUdpSocket();
         ipSocketHashmap.insert(addr, sock);
-
-
     } else {
 
         if(ipSocketHashmap.contains(addr)) {
@@ -149,7 +145,6 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
 
     quint16 _port = 0;
 
-    // TODO : 빈 포트 할당
     if(sock->bind(_port)) {
         qDebug() << "makeCEStruct bind success";
     } else {
@@ -181,6 +176,25 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_TEMPERATURE, (char)0x00);
     sendMessage(CeBuff->socket, message, addr, port);
     qDebug() << message.toHex();
+
+    printDevice(deviceType);
+
+    switch(deviceType)
+    {
+        case 0x00:
+
+        break;
+        case 0x01:
+        break;
+        case 0x02:
+        break;
+        case 0x03:
+        break;
+        case 0x04:
+        break;
+        default:
+        break;
+    }
 
     if(deviceType == 0x03) {
         qDebug() << "0x03 --------------------------------------------------";
@@ -225,6 +239,7 @@ QByteArray IoInterface::makeMessage(char deviceType, char messageType, char attr
         message.append(deviceType);
         message.append(messageType|attributeType);
         message.append((char)0x00);
+        message.append((char)0x00);
 
         qDebug() << "type GET : " << message.toHex() << "size : " << message.size();
 
@@ -267,5 +282,30 @@ void IoInterface::recvMessage()
     sock->readDatagram(buffer.data(), buffer.size());
     qDebug() << "bufferData : " << buffer.toHex();
 
+    //this->CeBuffer
+
 }
 
+void IoInterface::printDevice(char deviceType)
+{
+    switch(deviceType)
+    {
+        case 0x00:
+            qDebug() << "Device <TV>";
+        break;
+        case 0x01:
+        qDebug() << "Device <Refrigerator>";
+        break;
+        case 0x02:
+        qDebug() << "Device <Light>";
+        break;
+        case 0x03:
+        qDebug() << "Device <Heater>";
+        break;
+        case 0x04:
+        qDebug() << "Device <Cooler>";
+        break;
+        default:
+        break;
+    }
+}

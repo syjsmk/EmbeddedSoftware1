@@ -29,6 +29,7 @@ private :
 
     //QHostAddress *CeBuffer;
     struct CE *CeBuffer;
+    void printDevice(char deviceType);
 
 public:
     //QHostAddress *getCeBuffer();
