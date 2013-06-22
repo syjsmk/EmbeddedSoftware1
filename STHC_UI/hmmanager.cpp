@@ -22,6 +22,7 @@ void HMManager::listenBroadcast()
 
 void HMManager::getCeBuffer()
 {
+    bool isContain = false;
     //ioInterface->getCeBuffer(); //TODO : list에 넣는 코드
     qDebug() << "HMManager getCeBuffer";
     qDebug() << ioInterface->getCeBuffer()->addr.toString();
@@ -30,12 +31,24 @@ void HMManager::getCeBuffer()
     // TODO :  CE 구분해서 기존에 있는 CE일 경우 추가 안하게 해야 함.
 
     CE ce;
-    foreach(ce, ceList)
+    if(ceList.size() == 0)
     {
-        qDebug() << ce.addr;
-    }
+        this->ceList.append(*(ioInterface->getCeBuffer()));
+    } else {
+        foreach(ce, ceList)
+        {
+            qDebug() << "ce.addr : " << ce.addr << "iointerface.addr : " << ioInterface->getCeBuffer()->addr;
+            if(ce.addr == ioInterface->getCeBuffer()->addr) {
+                isContain = true;
+            }
+        }
 
-    this->ceList.append(*(ioInterface->getCeBuffer()));
+        if(isContain == false)
+        {
+            this->ceList.append(*(ioInterface->getCeBuffer()));
+        }
+        isContain = false;
+    }
 
     qDebug() << "list size : " << this->ceList.size();
 
