@@ -34,7 +34,6 @@ QBitArray bytesToBits(QByteArray bytes) {
     return bits;
 }
 
-
 QByteArray bitsToBytes(QBitArray bits) {
     QByteArray bytes;
     bytes.resize(bits.count()/8+1);
@@ -59,13 +58,10 @@ void IoInterface::listenBroadcast()
 
     QHostAddress addr;
     quint16 port;
-    //this->CeBuffer = new CE();
-
 
     if(socket->pendingDatagramSize() != -1){
         qDebug() << socket->pendingDatagramSize();
         socket->readDatagram(buffer.data(), buffer.size(), &addr, &port);
-
 
         QDataStream stream(buffer);
         qDebug() << "data = " << buffer.data() << " = " << buffer.toHex() << " addr : " << addr.toString() << " port : " << port << "size = " << buffer.count();
@@ -119,8 +115,14 @@ struct CE* IoInterface::getCeBuffer()
 struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16 port)
 {
     struct CE *CeBuff = new CE();
-    QUdpSocket *sock = new QUdpSocket();
-    sock->bind(1106);
+    QUdpSocket *sock = new QUdpSocket(this);
+    //sock->bind(1106); 어떤 포트로 바인드 해줘야 맞는건가.
+    if(sock->bind(1106)) {
+    //if(sock->bind(4000)) {
+        qDebug() << "makeCEStruct bind success";
+    } else {
+        qDebug() << "makeCEStruct bind fail";
+    };
     CeBuff->socket = sock;
     CeBuff->addr = addr;
     qDebug() << "makeCeStruct addr : " << addr.toString();
@@ -143,8 +145,9 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     socket->writeDatagram(message, addr, port);
 
     message = this->makeMessage(0x00, MESSAGE_OPTION_GET, ATTRIBUTE_TEMPERATURE, (char)0x00);
+    sendMessage(CeBuff->socket, message, addr, port);
     qDebug() << message.toHex();
-    socket->writeDatagram(message, addr, port);
+    //socket->writeDatagram(message, addr, port);
 
     //TODO : 브로드캐스트 메시지에서 값 받아와서 얘 채워줘야 함
     //char deviceType = 'a';
@@ -187,17 +190,26 @@ QByteArray IoInterface::makeMessage(char deviceType, char messageType, char attr
     }
 }
 
-void IoInterface::sendMessage(QUdpSocket *socket, int message, QHostAddress addr, quint16 port)
+void IoInterface::sendMessage(QUdpSocket *socket, QByteArray message, QHostAddress addr, quint16 port)
 {
-    qDebug() << "IoInterface::sendMessage";
+    qDebug() << "IoInterface::sendMessage start";
     qDebug() << "addr : " << addr.toString();
     //this->socket->writeDatagram()
+    //socket->writeDatagram(message, addr, port);
+    socket->writeDatagram(message, addr, port);
+    qDebug() << "IoInterface::sendMessage end";
 }
 
 // TODO : get메시지에 대한 패킷은 broadcast가 아니라 unicast니까 위의 리스너가 받지 못함.
 // TODO : 동적으로 소켓을 생성해야 한다고 함. 또 connect 써야 함. unicast용 소켓은 1106이 아니라 다른걸 써서 받아야 함.
+// 여기 부분을 connect에 등록해야 할 것 같음.
 void IoInterface::recvMessage()
 {
     qDebug() << "recvMessage()";
+    qDebug() << "CeBuffer->addr : " << CeBuffer->addr.toString();
+    qDebug() << "datagramSize : " << CeBuffer->socket->pendingDatagramSize();
+    QByteArray buffer(socket->pendingDatagramSize(), 0);
+    CeBuffer->socket->bind(9898);
+    CeBuffer->socket->readDatagram(buffer.data(), buffer.size());
 }
 
