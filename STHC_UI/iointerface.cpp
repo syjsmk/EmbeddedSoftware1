@@ -145,7 +145,7 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
         }
     }
 
-    qDebug() << "ipListSize : " << ipSocketHashmap.size();
+    qDebug() << "ipSocketHashmap : " << ipSocketHashmap.size();
 
     quint16 _port = 0;
 
@@ -182,6 +182,22 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     sendMessage(CeBuff->socket, message, addr, port);
     qDebug() << message.toHex();
 
+    if(deviceType == 0x03) {
+        qDebug() << "0x03 --------------------------------------------------";
+
+        message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_POWER, (char)0x00);
+        sendMessage(CeBuff->socket, message, addr, port);
+        qDebug() << message.toHex();
+
+        message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_TEMPERATURE, (char)0x00);
+        sendMessage(CeBuff->socket, message, addr, port);
+        qDebug() << message.toHex();
+
+        message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_WIND, (char)0x00);
+        sendMessage(CeBuff->socket, message, addr, port);
+        qDebug() << message.toHex();
+    }
+
 
     //socket->writeDatagram(message, addr, port);
 
@@ -208,7 +224,6 @@ QByteArray IoInterface::makeMessage(char deviceType, char messageType, char attr
     {
         message.append(deviceType);
         message.append(messageType|attributeType);
-        message.append((char)0x00);
         message.append((char)0x00);
 
         qDebug() << "type GET : " << message.toHex() << "size : " << message.size();
