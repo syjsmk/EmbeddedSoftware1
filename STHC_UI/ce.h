@@ -13,4 +13,6 @@ typedef struct CE
     int brightness;
     int volume;
     int channel;
+
+    //QUdpSocket *socket;
 };

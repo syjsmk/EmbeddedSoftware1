@@ -20,7 +20,8 @@ HEADERS += tv_ui.h \
     light_ui.h \
     iointerface.h \
     hmmanager.h \
-    ce.h
+    ce.h \
+    MessageDefine.h
 FORMS += tv_ui.ui \
     ceselector_ui.ui \
     cooler_ui.ui \

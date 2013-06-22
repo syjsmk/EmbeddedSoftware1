@@ -78,16 +78,41 @@ void IoInterface::listenBroadcast()
         this->CeBuffer = makeCeStruct(deviceType, addr, port);
 
         // writeDiagram 참고 코드
-        //00421000
+        //00421000  set 2번Attr 16
+        // 마지막 1바이트가 사실상 필요가 없음.
         QByteArray sendTemp;
         sendTemp.resize(4);
         sendTemp.clear();
+        //int message = 0;
+        QByteArray message;
+        message.resize(4);
+        message.clear();
+
+        /*
+        char a = 0;
+        sendTemp.append(a);
+        a + MESSAGE_OPTION_SET + ATTRIBUTE_TEMPERATURE;
+        sendTemp.append(a);
+        a = 0;
+        a + 0x10;
+        sendTemp.append(a);
+        a = 0;
+        sendTemp.append(a);
+        */
+
+        message = this->makeMessage(0x00, MESSAGE_OPTION_SET, ATTRIBUTE_TEMPERATURE, (char)0x10);
+/*
         sendTemp.append((char)0x00);
-        sendTemp.append((char)0x42);
+        sendTemp.append(MESSAGE_OPTION_SET + ATTRIBUTE_TEMPERATURE); //get -> + 0x80, set -> + 0x40, attr1 -> + 0x01, attr2 -> 0x02, attr3 -> 0x03
         sendTemp.append((char)0x10);
         sendTemp.append((char)0x00);
 
+        sendTemp.append(message);
+        */
+        sendTemp.append(message);
+
         qDebug() << sendTemp.toHex();
+        qDebug() << message.toHex();
 
         port = 1106;
         socket->writeDatagram(sendTemp, addr, port);
@@ -137,8 +162,8 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
 
 
 
-    int message = makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_POWER, addr, port);
-    sendMessage(message, addr, port);
+    //int message = makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_POWER, 0,addr, port);
+    //sendMessage(message, addr, port);
     /*
     TODO : 내부에서 addr, port, makeMessage를 이용해
     broadcast를 보낸 기기에 getMessage를 만들어서 보내서
@@ -149,8 +174,29 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
 }
 
 // TODO :  이하의 함수들 구현해야 할 것. 반환형, 인자는 수정해도 상관 없음.
-int IoInterface::makeMessage(char deviceType, char messageType, char attributeType, QHostAddress addr, quint16 port)
+QByteArray IoInterface::makeMessage(char deviceType, char messageType, char attributeType, char operand)
 {
+    QByteArray message;
+
+    if(messageType == 0x80)  //GET
+    {
+        message.append(deviceType);
+        message.append(messageType|attributeType);
+        message.append((char)0x00);
+        message.append((char)0x00);
+
+        return message;
+    }
+    if(messageType == 0x40)  //SET
+    {
+        message.append(deviceType);
+        message.append(messageType|attributeType);
+        // 0x00을 더 넣어서라도 4바이트 모양을 만들어 줘야 됨.
+        message.append(operand);
+        message.append((char)0x00);
+
+        return message;
+    }
 }
 
 void IoInterface::sendMessage(int message, QHostAddress addr, quint16 port)
@@ -163,3 +209,4 @@ void IoInterface::sendMessage(int message, QHostAddress addr, quint16 port)
 void IoInterface::recvMessage()
 {
 }
+
