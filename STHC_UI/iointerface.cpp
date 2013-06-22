@@ -44,10 +44,10 @@ QByteArray bitsToBytes(QBitArray bits) {
     return bytes;
 }
 
-
+// TODO : IP주소 중복 처리
 void IoInterface::listenBroadcast()
-//void IoInterface::listenBroadcast(list *outParamList)
 {
+
     QBitArray bits;
     qDebug() << "broadCast()";
     QByteArray buffer(socket->pendingDatagramSize(), 0);
@@ -59,6 +59,8 @@ void IoInterface::listenBroadcast()
     QHostAddress addr;
     quint16 port;
 
+
+
     if(socket->pendingDatagramSize() != -1){
         qDebug() << socket->pendingDatagramSize();
         socket->readDatagram(buffer.data(), buffer.size(), &addr, &port);
@@ -68,9 +70,25 @@ void IoInterface::listenBroadcast()
         //CeBuffer = &addr;
         // signal
 
-        this->CeBuffer = makeCeStruct((char)0x00, addr, port);
 
-        emit getCeBufferSignal();
+        QHostAddress itorAddr;
+        if(ipList.size() == 0)
+        {
+            ipList.append(addr);
+            this->CeBuffer = makeCeStruct((char)0x00, addr, port);
+            emit getCeBufferSignal();
+        } else {
+
+            if(ipList.contains(addr)) {
+                qDebug() << "already exist IP";
+            } else {
+                ipList.append(addr);
+                this->CeBuffer = makeCeStruct((char)0x00, addr, port);
+                emit getCeBufferSignal();
+            }
+        }
+
+        qDebug() << "ipListSize : " << ipList.size();
 
         switch(buffer.count())
         {
@@ -115,7 +133,7 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
 {
     struct CE *CeBuff = new CE();
     QUdpSocket *sock = new QUdpSocket();
-    quint16 _port = 1107;
+    quint16 _port = 0;
 
     // TODO : 빈 포트 할당
     if(sock->bind(_port)) {

@@ -24,6 +24,7 @@ void HMManager::getCeBuffer()
     qDebug() << "HMManager getCeBuffer";
     qDebug() << ioInterface->getCeBuffer()->addr.toString();
 
+
     CE ce;
     if(ceList.size() == 0)
     {
@@ -43,6 +44,8 @@ void HMManager::getCeBuffer()
         }
         isContain = false;
     }
+
+    //this->ceList.append(*(ioInterface->getCeBuffer()));
 
     qDebug() << "list size : " << this->ceList.size();
 
