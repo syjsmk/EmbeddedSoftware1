@@ -122,7 +122,6 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     qDebug() << deviceType << "   hex :    " << deviceType;
     struct CE *CeBuff = new CE();
     QUdpSocket *sock = new QUdpSocket();
-
     quint16 _port = 0;
 
     if(ipSocketHashmap.size() == 0)
@@ -276,7 +275,6 @@ void IoInterface::sendMessage(QUdpSocket *socket, QByteArray message, QHostAddre
     qDebug() << "IoInterface::sendMessage start";
     qDebug() << "addr : " << addr.toString();
 
-
     socket->writeDatagram(message, addr, port);
     qDebug() << "IoInterface::sendMessage end";
 
@@ -289,7 +287,6 @@ void IoInterface::recvMessage()
     QString t;
     t.sprintf("first Attr : %x", CeBuffer->firstAttr);
     qDebug() << t;
-
 
     if(CeBuffer->socket->pendingDatagramSize() > 0)
     {
@@ -311,32 +308,36 @@ void IoInterface::recvMessage()
         getOperationFromMessage(buffer);
         getOperandFromMessage(buffer);
 */
+        if(getOperationTypeFromMessage(buffer) == 0xc0)
+        {
+            switch(getOperationFromMessage(buffer))
+            {
+                case 0x01:
+                CeBuffer->firstAttr = getOperandFromMessage(buffer);
+                break;
+                case 0x02:
+                CeBuffer->secondAttr = getOperandFromMessage(buffer);
+                break;
+                case 0x03:
+                CeBuffer->thirdAttr = getOperandFromMessage(buffer);
+                break;
+                default:
+                break;
+            }
+        }
+
+        printCEInfo(*CeBuffer);
+
+
     }
 
 }
 
-void IoInterface::printDevice(char deviceType)
+void IoInterface::printCEInfo(CE ce)
 {
-    switch(deviceType)
-    {
-        case 0x00:
-            qDebug() << "Device <TV>";
-        break;
-        case 0x01:
-            qDebug() << "Device <Refrigerator>";
-        break;
-        case 0x02:
-            qDebug() << "Device <Light>";
-        break;
-        case 0x03:
-            qDebug() << "Device <Heater>";
-        break;
-        case 0x04:
-            qDebug() << "Device <Cooler>";
-        break;
-        default:
-        break;
-    }
+    QString t;
+    t.sprintf("CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", ce.type, ce.firstAttr, ce.secondAttr, ce.thirdAttr);
+    qDebug() << t;
 }
 
 void IoInterface::printMessageInfo(QByteArray message)

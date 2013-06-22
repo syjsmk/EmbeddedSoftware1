@@ -29,8 +29,6 @@ private :
 
     //QHostAddress *CeBuffer;
     struct CE *CeBuffer;
-    void printDevice(char deviceType);
-
 
     char getDeviceTypeFromMessage(QByteArray message);
     char getOperationTypeFromMessage(QByteArray message);
@@ -45,6 +43,7 @@ public:
 
     QByteArray makeMessage(char deviceType, char messageType, char attributeType, char operand);
     void sendMessage(QUdpSocket *socket, QByteArray message, QHostAddress addr, quint16 port);
+    void printCEInfo(CE ce);
     //void recvMessage();
 
 public slots:
