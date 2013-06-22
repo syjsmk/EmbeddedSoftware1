@@ -21,7 +21,8 @@ HEADERS += tv_ui.h \
     iointerface.h \
     hmmanager.h \
     ce.h \
-    MessageDefine.h
+    MessageDefine.h \
+    mysignal.h
 FORMS += tv_ui.ui \
     ceselector_ui.ui \
     cooler_ui.ui \

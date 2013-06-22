@@ -5,6 +5,7 @@
 #include <QUdpSocket>
 #include <QObject>
 #include <QBitArray>
+#include <signal.h>
 
 #include "ce.h"
 #include "MessageDefine.h"
@@ -47,6 +48,7 @@ public:
     void sendMessage(QUdpSocket *socket, QByteArray message, QHostAddress addr, quint16 port);
     void printCEInfo(CE ce);
     //void recvMessage();
+    void signalHandler(int signo, siginfo_t *info, void *context);
 
 public slots:
   void listenBroadcast();
