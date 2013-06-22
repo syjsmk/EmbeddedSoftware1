@@ -14,5 +14,5 @@ typedef struct CE
     int volume;
     int channel;
 
-    //QUdpSocket *socket;
+    QUdpSocket *socket;
 };

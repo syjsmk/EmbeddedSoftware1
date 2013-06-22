@@ -35,12 +35,12 @@ public:
     struct CE* makeCeStruct(char deviceType, QHostAddress addr, quint16 port);
 
     QByteArray makeMessage(char deviceType, char messageType, char attributeType, char operand);
-    void sendMessage(int message, QHostAddress addr, quint16 port);
-    void recvMessage();
+    void sendMessage(QUdpSocket *socket, int message, QHostAddress addr, quint16 port);
+    //void recvMessage();
 
 public slots:
   void listenBroadcast();
-
+  void recvMessage();
 
   signals:
     void getCeBufferSignal();

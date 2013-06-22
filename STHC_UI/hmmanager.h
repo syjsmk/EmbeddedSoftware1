@@ -19,8 +19,8 @@ public:
     ~HMManager();
 
 private:
-    //QList
-    list<CE> ceList;
+    QList<CE> ceList;
+    //list<CE> ceList;
 
     IoInterface *ioInterface;
 

@@ -10,6 +10,7 @@ IoInterface::IoInterface()
     }
 
     connect( socket, SIGNAL(readyRead()), this, SLOT(listenBroadcast()) );
+    //QObject::sender()->
     //connect(socket, SIGNAL(readyRead()), this, SLOT(listenBroadcast(list*)));
 }
 
@@ -70,53 +71,10 @@ void IoInterface::listenBroadcast()
         qDebug() << "data = " << buffer.data() << " = " << buffer.toHex() << " addr : " << addr.toString() << " port : " << port << "size = " << buffer.count();
         //CeBuffer = &addr;
         // signal
+
+        this->CeBuffer = makeCeStruct((char)0x00, addr, port);
+
         emit getCeBufferSignal();
-
-        //TODO : 브로드캐스트 메시지에서 값 받아와서 얘 채워줘야 함
-        char deviceType = 'a';
-
-        this->CeBuffer = makeCeStruct(deviceType, addr, port);
-
-        // writeDiagram 참고 코드
-        //00421000  set 2번Attr 16
-        // 마지막 1바이트가 사실상 필요가 없음.
-        QByteArray sendTemp;
-        sendTemp.resize(4);
-        sendTemp.clear();
-        //int message = 0;
-        QByteArray message;
-        message.resize(4);
-        message.clear();
-
-        /*
-        char a = 0;
-        sendTemp.append(a);
-        a + MESSAGE_OPTION_SET + ATTRIBUTE_TEMPERATURE;
-        sendTemp.append(a);
-        a = 0;
-        a + 0x10;
-        sendTemp.append(a);
-        a = 0;
-        sendTemp.append(a);
-        */
-
-        message = this->makeMessage(0x00, MESSAGE_OPTION_SET, ATTRIBUTE_TEMPERATURE, (char)0x10);
-/*
-        sendTemp.append((char)0x00);
-        sendTemp.append(MESSAGE_OPTION_SET + ATTRIBUTE_TEMPERATURE); //get -> + 0x80, set -> + 0x40, attr1 -> + 0x01, attr2 -> 0x02, attr3 -> 0x03
-        sendTemp.append((char)0x10);
-        sendTemp.append((char)0x00);
-
-        sendTemp.append(message);
-        */
-        sendTemp.append(message);
-
-        qDebug() << sendTemp.toHex();
-        qDebug() << message.toHex();
-
-        port = 1106;
-        socket->writeDatagram(sendTemp, addr, port);
-
 
         switch(buffer.count())
         {
@@ -152,6 +110,8 @@ void IoInterface::listenBroadcast()
 //QHostAddress* IoInterface::getCeBuffer()
 struct CE* IoInterface::getCeBuffer()
 {
+    qDebug() << "getCeBuffer";
+    qDebug() << CeBuffer->addr.toString();
     return this->CeBuffer;
     //return this->CeBuffer;
 }
@@ -159,7 +119,35 @@ struct CE* IoInterface::getCeBuffer()
 struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16 port)
 {
     struct CE *CeBuff = new CE();
+    QUdpSocket *sock = new QUdpSocket();
+    sock->bind(1106);
+    CeBuff->socket = sock;
+    CeBuff->addr = addr;
+    qDebug() << "makeCeStruct addr : " << addr.toString();
 
+    connect(CeBuff->socket, SIGNAL(readyRead()), this, SLOT(recvMessage()));
+    qDebug() << QObject::sender();
+
+ // writeDiagram 참고 코드
+    //00421000  set 2번Attr 16
+    // 마지막 1바이트가 사실상 필요가 없음.
+    QByteArray message;
+    message.resize(4);
+    message.clear();
+
+    message = this->makeMessage(0x00, MESSAGE_OPTION_SET, ATTRIBUTE_TEMPERATURE, (char)0x10);
+    //message = this->makeMessage(0x00, MESSAGE_OPTION_GET, ATTRIBUTE_TEMPERATURE, (char)0x00);
+    qDebug() << message.toHex();
+
+    port = 1106;
+    socket->writeDatagram(message, addr, port);
+
+    message = this->makeMessage(0x00, MESSAGE_OPTION_GET, ATTRIBUTE_TEMPERATURE, (char)0x00);
+    qDebug() << message.toHex();
+    socket->writeDatagram(message, addr, port);
+
+    //TODO : 브로드캐스트 메시지에서 값 받아와서 얘 채워줘야 함
+    //char deviceType = 'a';
 
 
     //int message = makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_POWER, 0,addr, port);
@@ -199,8 +187,10 @@ QByteArray IoInterface::makeMessage(char deviceType, char messageType, char attr
     }
 }
 
-void IoInterface::sendMessage(int message, QHostAddress addr, quint16 port)
+void IoInterface::sendMessage(QUdpSocket *socket, int message, QHostAddress addr, quint16 port)
 {
+    qDebug() << "IoInterface::sendMessage";
+    qDebug() << "addr : " << addr.toString();
     //this->socket->writeDatagram()
 }
 
@@ -208,5 +198,6 @@ void IoInterface::sendMessage(int message, QHostAddress addr, quint16 port)
 // TODO : 동적으로 소켓을 생성해야 한다고 함. 또 connect 써야 함. unicast용 소켓은 1106이 아니라 다른걸 써서 받아야 함.
 void IoInterface::recvMessage()
 {
+    qDebug() << "recvMessage()";
 }
 
