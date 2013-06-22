@@ -127,6 +127,8 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     {
         qDebug() << "hashMapSize zero";
         sock = new QUdpSocket();
+
+        connect(sock, SIGNAL(readyRead()), this, SLOT(recvMessage()));
         ipSocketHashmap.insert(addr, sock);
     } else {
 
@@ -136,6 +138,7 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
         } else {
             qDebug() << "not exist";
             sock = new QUdpSocket();
+            connect(sock, SIGNAL(readyRead()), this, SLOT(recvMessage()));
             ipSocketHashmap.insert(addr, sock);
         }
     }
@@ -153,7 +156,7 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     CeBuff->addr = addr;
     qDebug() << "makeCeStruct addr : " << addr.toString();
 
-    connect(CeBuff->socket, SIGNAL(readyRead()), this, SLOT(recvMessage()));
+    //connect(CeBuff->socket, SIGNAL(readyRead()), this, SLOT(recvMessage()));
 
 
  // writeDiagram 참고 코드
@@ -278,6 +281,7 @@ void IoInterface::sendMessage(QUdpSocket *socket, QByteArray message, QHostAddre
 void IoInterface::recvMessage()
 {
     qDebug() << "recvMessage()";
+    qDebug() << CeBuffer->addr.toString();
 
     if(CeBuffer->socket->pendingDatagramSize() > 0)
     {
