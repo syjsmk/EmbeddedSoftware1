@@ -157,17 +157,17 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
         }
     }
 
-    qDebug() << "ipSocketHashmap : " << ipSocketHashmap.size();
-
-
-
+    qDebug() << "ipSocketHashmap Size : " << ipSocketHashmap.size();
 
     CeBuff->socket = sock;
     CeBuff->addr = addr;
     qDebug() << "makeCeStruct addr : " << addr.toString();
 
-    //connect(CeBuff->socket, SIGNAL(readyRead()), this, SLOT(recvMessage()));
+    QString t;
+    t.sprintf("first Attr : %x", CeBuff->firstAttr);
+    qDebug() << t;
 
+    //connect(CeBuff->socket, SIGNAL(readyRead()), this, SLOT(recvMessage()));
 
  // writeDiagram 참고 코드
     //00421000  set 2번Attr 16
@@ -180,6 +180,11 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     //CeBuff->type = deviceType;
     //CeBuff->type = getDeviceTypeFromMessage(message);
 
+    // 0x00 <TV> 3개
+    // 0x01 <Refrigerator> 2개
+    // 0x02 <Light> 2개
+    // 0x03 <Heater> 3개
+    // 0x04 <Cooler> 3개
     switch(deviceType)
     {
         case 0x00:
@@ -334,6 +339,7 @@ void IoInterface::printMessageInfo(QByteArray message)
     qDebug() << "printMessageInfo";
     QString temp;
 
+    // 0x00 <TV> 0x01 <Refrigerator> 0x02 <Light> 0x03 <Heater> 0x04 <Cooler>
     char deviceType = (message.at(0) & 0xff);
     switch(deviceType)
     {
@@ -356,7 +362,7 @@ void IoInterface::printMessageInfo(QByteArray message)
         break;
     }
 
-    // 0x00 0x40 0x80 0xC0
+    // 0x00 <broadcast> 0x40 <set> 0x80 <get> 0xC0 <res for get>
     char operationType = (message.at(1) & 0xf0);
     switch(operationType)
     {

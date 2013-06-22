@@ -2,10 +2,11 @@
 
 #include <QUdpSocket>
 
-#define NOUSE   999
+#define NOUSE   0xFF
 
 typedef struct CE
 {
+    /*
     int type;
     bool power;
     QHostAddress addr;
@@ -17,13 +18,19 @@ typedef struct CE
     int channel;
 
     QUdpSocket *socket;
-    
-    CE()
-    {
-        temperature = NOUSE;
-        wind = NOUSE;
-        brightness = NOUSE;
-        volume = NOUSE;
-        channel = NOUSE;
+
+    */
+    char type;
+    char firstAttr; // power
+    char secondAttr; // channel, temperature, brightness
+    char thirdAttr; // volume, wind
+
+    CE() {
+        firstAttr = NOUSE;
+        secondAttr = NOUSE;
+        thirdAttr = NOUSE;
     }
+
+    QHostAddress addr;
+    QUdpSocket *socket;
 };

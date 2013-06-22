@@ -53,7 +53,6 @@ void HMManager::getCeBuffer()
 
     ioInterface->sendMessage(ioInterface->getCeBuffer()->socket, 0x00, ioInterface->getCeBuffer()->addr, 1106);
 
-
 }
 
 
@@ -63,13 +62,14 @@ void HMManager::sendMessage()
     qDebug() << "sendMessage in HM";
     CE ce;
     QByteArray message;
-    //message = this->ioInterface->makeMessage((char)0x03, MESSAGE_OPTION_SET, ATTRIBUTE_FIRST, (char)0x05);
-    message = this->ioInterface->makeMessage((char)0x03, MESSAGE_OPTION_GET, ATTRIBUTE_FIRST, (char)0x00);
+    message = this->ioInterface->makeMessage((char)0x03, MESSAGE_OPTION_SET, ATTRIBUTE_FIRST, (char)0x05);
+    //message = this->ioInterface->makeMessage((char)0x03, MESSAGE_OPTION_GET, ATTRIBUTE_FIRST, (char)0x00);
     ioInterface->printMessageInfo(message);
+    qDebug() << "ceList Size : " << ceList.size();
     foreach(ce, ceList)
     {
         this->ioInterface->sendMessage(ce.socket, message, ce.addr, 1106);
-        sleep(1);
+
     }
 
 
