@@ -2,6 +2,8 @@
 
 HMManager::HMManager()
 {
+    ceList = new QList<CE>;
+
     this->ioInterface = new IoInterface();
     QObject::connect(ioInterface, SIGNAL(getCeBufferSignal()), this, SLOT(getCeBuffer()));
 
@@ -10,7 +12,8 @@ HMManager::HMManager()
 HMManager::~HMManager()
 {
     delete(ioInterface);
-    this->ceList.clear();
+    this->ceList->clear();
+    delete ceList;
 }
 
 void HMManager::listenBroadcast()
@@ -28,11 +31,11 @@ void HMManager::getCeBuffer()
 
 
     CE ce;
-    if(ceList.size() == 0)
+    if(ceList->size() == 0)
     {
-        this->ceList.append(*(ioInterface->getCeBuffer()));
+        this->ceList->append(*(ioInterface->getCeBuffer()));
     } else {
-        foreach(ce, ceList)
+        foreach(ce, *ceList)
         {
             qDebug() << "ce.addr : " << ce.addr << "iointerface.addr : " << ioInterface->getCeBuffer()->addr;
             if(ce.addr == ioInterface->getCeBuffer()->addr) {
@@ -42,16 +45,16 @@ void HMManager::getCeBuffer()
 
         if(isContain == false)
         {
-            this->ceList.append(*(ioInterface->getCeBuffer()));
+            this->ceList->append(*(ioInterface->getCeBuffer()));
         }
         isContain = false;
     }
 
     //this->ceList.append(*(ioInterface->getCeBuffer()));
 
-    qDebug() << "ceList size : " << this->ceList.size();
+    qDebug() << "ceList size : " << this->ceList->size();
 
-    ioInterface->sendMessage(ioInterface->getCeBuffer()->socket, 0x00, ioInterface->getCeBuffer()->addr, 1106);
+    //ioInterface->sendMessage(ioInterface->getCeBuffer()->socket, 0x00, ioInterface->getCeBuffer()->addr, 1106);
 
 }
 
@@ -65,14 +68,15 @@ void HMManager::sendMessage()
     //message = this->ioInterface->makeMessage((char)0x03, MESSAGE_OPTION_SET, ATTRIBUTE_FIRST, (char)0x05);
     message = this->ioInterface->makeMessage((char)0x03, MESSAGE_OPTION_GET, ATTRIBUTE_FIRST, (char)0x00);
     ioInterface->printMessageInfo(message);
-    qDebug() << "ceList Size : " << ceList.size();
-    foreach(ce, ceList)
+    qDebug() << "ceList Size : " << ceList->size();
+    foreach(ce, *ceList)
     {
         this->ioInterface->sendMessage(ce.socket, message, ce.addr, 1106);
 
     }
+}
 
-
-
-
+QList<CE>* HMManager::getCeList()
+{
+    return this->ceList;
 }

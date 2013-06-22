@@ -19,7 +19,7 @@ public:
     ~HMManager();
 
 private:
-    QList<CE> ceList;
+    QList<CE> *ceList;
     //list<CE> ceList;
 
     IoInterface *ioInterface;
@@ -28,6 +28,7 @@ public:
     void listenBroadcast();
     //void sendMessage(QByteArray message);
     void sendMessage();
+    QList<CE> *getCeList();
 
 public slots:
     void getCeBuffer();

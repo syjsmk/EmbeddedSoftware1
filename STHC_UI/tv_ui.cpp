@@ -28,7 +28,18 @@ void TV_UI::on_powerButton_clicked()
 
 void TV_UI::on_chUpButton_clicked()
 {
-    //hmmanager->sendMessage(
+    qDebug() << "on_chUpButton_clicked()";
+    QList<CE> *ceList = hmmanager->getCeList();
+    qDebug() << "CE SIZE : " << ceList->size();
+
+    CE ce;
+    QString t;
+    foreach(ce, *ceList)
+    {
+
+        t.sprintf("CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", ce.type, ce.firstAttr, ce.secondAttr, ce.thirdAttr);
+        qDebug() << t;
+    }
 
 }
 
