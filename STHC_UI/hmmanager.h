@@ -32,6 +32,7 @@ public:
 
 public slots:
     void getCeBuffer();
+    void insertCE();
 };
 
 #endif // HMMANAGER_H

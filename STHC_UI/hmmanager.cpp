@@ -6,6 +6,7 @@ HMManager::HMManager()
 
     this->ioInterface = new IoInterface();
     QObject::connect(ioInterface, SIGNAL(getCeBufferSignal()), this, SLOT(getCeBuffer()));
+    QObject::connect(ioInterface, SIGNAL(initCompleteCeStructSignal()), this, SLOT(insertCE()));
 
 }
 
@@ -21,6 +22,12 @@ void HMManager::listenBroadcast()
     //this->ioInterface->listenBroadcast(this->ceList);
 }
 
+void HMManager::insertCE()
+{
+    qDebug() << "insertCE";
+    qDebug() << "secondAttr : " << 0x0f <<  " else "<< this->ioInterface->getCeBuffer()->addr << this->ioInterface->getCeBuffer()->secondAttr;
+}
+
 void HMManager::getCeBuffer()
 {
     bool isContain = false;
@@ -28,7 +35,6 @@ void HMManager::getCeBuffer()
     qDebug() << "HMManager getCeBuffer";
     qDebug() << ioInterface->getCeBuffer()->addr.toString();
     */
-
 
     CE ce;
     if(ceList->size() == 0)

@@ -25,11 +25,6 @@ typedef struct CE
     char secondAttr; // channel, temperature, brightness
     char thirdAttr; // volume, wind
 
-    CE() {
-        firstAttr = NOUSE;
-        secondAttr = NOUSE;
-        thirdAttr = NOUSE;
-    }
 
     QHostAddress addr;
     QUdpSocket *socket;

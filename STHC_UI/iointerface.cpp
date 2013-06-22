@@ -111,8 +111,8 @@ void IoInterface::listenBroadcast()
 //QHostAddress* IoInterface::getCeBuffer()
 struct CE* IoInterface::getCeBuffer()
 {
-    //qDebug() << "getCeBuffer";
-    //qDebug() << CeBuffer->addr.toString();
+    qDebug() << "getCeBuffer";
+    printCEInfo(*CeBuffer);
     return this->CeBuffer;
 }
 
@@ -120,6 +120,15 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
 {
     qDebug() << deviceType << "   hex :    " << deviceType;
     struct CE *CeBuff = new CE();
+    CeBuff->addr = 0;
+    CeBuff->socket = NULL;
+
+    CeBuff->type = 0x00;
+    CeBuff->firstAttr = 0x00;
+    CeBuff->secondAttr = 0x00;
+    CeBuff->thirdAttr = 0x00;
+
+
 
     CeBuff->type = deviceType;
     QUdpSocket *sock = new QUdpSocket();
@@ -183,7 +192,7 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     // 0x02 <Light> 2개
     // 0x03 <Heater> 3개
     // 0x04 <Cooler> 3개
-
+//this->CeBuffer = CeBuff;
     switch(deviceType)
     {
         case 0x00:
@@ -205,6 +214,14 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
         break;
     }
 
+
+
+    qDebug() << "CeBuffddddddddddddddddddddddddddddddddddddddd";
+    printCEInfo(*CeBuff);
+    printCEInfo(*CeBuffer);
+
+
+
     //int message = makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_POWER, 0,addr, port);
     //sendMessage(message, addr, port);
     /*
@@ -212,7 +229,6 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     broadcast를 보낸 기기에 getMessage를 만들어서 보내서
     CE의 정보를 받아서 받아온 값들을 이용해 CeBuff의 값을 채워줘야 한다.
        */
-
     return CeBuff;
 }
 
@@ -273,10 +289,6 @@ void IoInterface::recvMessage()
         QUdpSocket *sock = static_cast<QUdpSocket*>(sender);
         sock->readDatagram(buffer.data(), buffer.size());
 
-        /*
-        char operation = buffer.at(1) & 0x0F;
-        qDebug() << "operand : " << (buffer.at(1) & 0x0F);
-        */
         printMessageInfo(buffer);
 /*
         getDeviceTypeFromMessage(buffer);
@@ -304,6 +316,7 @@ void IoInterface::recvMessage()
 
         printCEInfo(*CeBuffer);
 
+        emit initCompleteCeStructSignal();
 
     }
 
@@ -311,16 +324,25 @@ void IoInterface::recvMessage()
 
 void IoInterface::sendGetMessageEachAttribute(CE *ce, int attributeCount)
 {
+    CeBuffer = ce;
     qDebug() << "sendGetMessageEachAttribute";
     QByteArray message;
     char attributeType = ATTRIBUTE_FIRST;
 
+/*
     for(int i = 0; i < attributeCount; i ++)
         {
             message = this->makeMessage(ce->type, MESSAGE_OPTION_GET, attributeType, (char)0x00);
             sendMessage(ce->socket, message, ce->addr, 1106);
             attributeType ++;
         }
+*/
+    for(int i = 0; i < attributeCount; i ++)
+    {
+        message = this->makeMessage(CeBuffer->type, MESSAGE_OPTION_GET, attributeType, (char)0x00);
+        sendMessage(CeBuffer->socket, message, CeBuffer->addr, 1106);
+        attributeType ++;
+    }
 }
 
 void IoInterface::printCEInfo(CE ce)

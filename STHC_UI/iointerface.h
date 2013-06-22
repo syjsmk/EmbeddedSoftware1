@@ -30,6 +30,7 @@ private :
     //QHostAddress *CeBuffer;
     struct CE *CeBuffer;
 
+
     char getDeviceTypeFromMessage(QByteArray message);
     char getOperationTypeFromMessage(QByteArray message);
     char getOperationFromMessage(QByteArray message);
@@ -53,6 +54,7 @@ public slots:
 
   signals:
     void getCeBufferSignal();
+    void initCompleteCeStructSignal();
 
 };
 
