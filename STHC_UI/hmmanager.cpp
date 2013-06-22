@@ -28,9 +28,11 @@ void HMManager::getCeBuffer()
     //this->ceList.insert(
 
     // TODO :  CE 구분해서 기존에 있는 CE일 경우 추가 안하게 해야 함.
-    for(QList<CE>::iterator itor = this->ceList.begin(); itor != ceList.end(); itor++)
+
+    CE ce;
+    foreach(ce, ceList)
     {
-        //qDebug() << "itor : " << itor.i;
+        qDebug() << ce.addr;
     }
 
     this->ceList.append(*(ioInterface->getCeBuffer()));
