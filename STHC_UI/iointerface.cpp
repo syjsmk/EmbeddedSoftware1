@@ -69,26 +69,15 @@ void IoInterface::listenBroadcast()
         qDebug() << "data = " << buffer.data() << " = " << buffer.toHex() << " addr : " << addr.toString() << " port : " << port << "size = " << buffer.count();
         //CeBuffer = &addr;
         // signal
+        device.append(buffer.at(0)&0xFF);
 
+
+        qDebug() << "device : " << device.data() << "    hex : " << device.toHex();
 
         QHostAddress itorAddr;
-        if(ipList.size() == 0)
-        {
-            ipList.append(addr);
-            this->CeBuffer = makeCeStruct((char)0x00, addr, port);
-            emit getCeBufferSignal();
-        } else {
 
-            if(ipList.contains(addr)) {
-                qDebug() << "already exist IP";
-            } else {
-                ipList.append(addr);
-                this->CeBuffer = makeCeStruct((char)0x00, addr, port);
-                emit getCeBufferSignal();
-            }
-        }
-
-        qDebug() << "ipListSize : " << ipList.size();
+        this->CeBuffer = makeCeStruct(buffer.at(0), addr, port);
+        emit getCeBufferSignal();
 
         switch(buffer.count())
         {
@@ -131,8 +120,33 @@ struct CE* IoInterface::getCeBuffer()
 
 struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16 port)
 {
+    qDebug() << deviceType << "   hex :    " << deviceType;
     struct CE *CeBuff = new CE();
     QUdpSocket *sock = new QUdpSocket();
+
+    // TODO : 이거 여기가 아니라 소켓 생성하는데서 할 것.
+    // socket과 ip의 map으로 저장해야 할 듯 함.
+    if(ipSocketHashmap.size() == 0)
+    {
+        qDebug() << "hashMapSize zero";
+        sock = new QUdpSocket();
+        ipSocketHashmap.insert(addr, sock);
+
+
+    } else {
+
+        if(ipSocketHashmap.contains(addr)) {
+            sock = ipSocketHashmap.value(addr);
+            qDebug() << "already exist IP";
+        } else {
+            qDebug() << "not exist";
+            sock = new QUdpSocket();
+            ipSocketHashmap.insert(addr, sock);
+        }
+    }
+
+    qDebug() << "ipListSize : " << ipSocketHashmap.size();
+
     quint16 _port = 0;
 
     // TODO : 빈 포트 할당
@@ -155,14 +169,16 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     message.resize(4);
     message.clear();
 
-    message = this->makeMessage(0x00, MESSAGE_OPTION_SET, ATTRIBUTE_TEMPERATURE, (char)0x10);
-    //message = this->makeMessage(0x00, MESSAGE_OPTION_GET, ATTRIBUTE_TEMPERATURE, (char)0x00);
+    //message = this->makeMessage(0x00, MESSAGE_OPTION_SET, ATTRIBUTE_TEMPERATURE, (char)0x10);
+    message = this->makeMessage(deviceType, MESSAGE_OPTION_SET, ATTRIBUTE_TEMPERATURE, (char)0x10);
+
     qDebug() << message.toHex();
 
     port = 1106;
     socket->writeDatagram(message, addr, port);
 
-    message = this->makeMessage(0x00, MESSAGE_OPTION_GET, ATTRIBUTE_TEMPERATURE, (char)0x00);
+    //message = this->makeMessage(0x00, MESSAGE_OPTION_GET, ATTRIBUTE_TEMPERATURE, (char)0x00);
+    message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_TEMPERATURE, (char)0x00);
     sendMessage(CeBuff->socket, message, addr, port);
     qDebug() << message.toHex();
 
@@ -171,7 +187,6 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
 
     //TODO : 브로드캐스트 메시지에서 값 받아와서 얘 채워줘야 함
     //char deviceType = 'a';
-
 
     //int message = makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_POWER, 0,addr, port);
     //sendMessage(message, addr, port);
@@ -196,6 +211,8 @@ QByteArray IoInterface::makeMessage(char deviceType, char messageType, char attr
         message.append((char)0x00);
         message.append((char)0x00);
 
+        qDebug() << "type GET : " << message.toHex() << "size : " << message.size();
+
         return message;
     }
     if(messageType == 0x40)  //SET
@@ -205,6 +222,8 @@ QByteArray IoInterface::makeMessage(char deviceType, char messageType, char attr
         // 0x00을 더 넣어서라도 4바이트 모양을 만들어 줘야 됨.
         message.append(operand);
         message.append((char)0x00);
+
+        qDebug() << "type SET : " << message.toHex() << "size : " << message.size();
 
         return message;
     }

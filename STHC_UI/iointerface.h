@@ -25,7 +25,7 @@ public:
 
 private :
     QUdpSocket *socket;
-    QList<QHostAddress> ipList;
+    QHash<QHostAddress, QUdpSocket*> ipSocketHashmap;
 
     //QHostAddress *CeBuffer;
     struct CE *CeBuffer;
