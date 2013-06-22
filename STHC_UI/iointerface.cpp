@@ -123,6 +123,8 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     struct CE *CeBuff = new CE();
     QUdpSocket *sock = new QUdpSocket();
 
+    quint16 _port = 0;
+
     if(ipSocketHashmap.size() == 0)
     {
         qDebug() << "hashMapSize zero";
@@ -130,6 +132,12 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
 
         connect(sock, SIGNAL(readyRead()), this, SLOT(recvMessage()));
         ipSocketHashmap.insert(addr, sock);
+
+        if(sock->bind(_port)) {
+            qDebug() << "makeCEStruct bind success";
+        } else {
+            qDebug() << "makeCEStruct bind fail";
+        };
     } else {
 
         if(ipSocketHashmap.contains(addr)) {
@@ -140,18 +148,20 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
             sock = new QUdpSocket();
             connect(sock, SIGNAL(readyRead()), this, SLOT(recvMessage()));
             ipSocketHashmap.insert(addr, sock);
+
+            if(sock->bind(_port)) {
+                qDebug() << "makeCEStruct bind success";
+            } else {
+                qDebug() << "makeCEStruct bind fail";
+            };
         }
     }
 
     qDebug() << "ipSocketHashmap : " << ipSocketHashmap.size();
 
-    quint16 _port = 0;
 
-    if(sock->bind(_port)) {
-        qDebug() << "makeCEStruct bind success";
-    } else {
-        qDebug() << "makeCEStruct bind fail";
-    };
+
+
     CeBuff->socket = sock;
     CeBuff->addr = addr;
     qDebug() << "makeCeStruct addr : " << addr.toString();
@@ -166,19 +176,6 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     message.resize(4);
     message.clear();
     port = 1106;
-
-    /*
-    //message = this->makeMessage(0x00, MESSAGE_OPTION_SET, ATTRIBUTE_TEMPERATURE, (char)0x10);
-    message = this->makeMessage(deviceType, MESSAGE_OPTION_SET, ATTRIBUTE_SECOND, (char)0x10);
-
-    socket->writeDatagram(message, addr, port);
-
-    //message = this->makeMessage(0x00, MESSAGE_OPTION_GET, ATTRIBUTE_TEMPERATURE, (char)0x00);
-    message = this->makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_SECOND, (char)0x00);
-    sendMessage(CeBuff->socket, message, addr, port);
-
-    printMessageInfo(message);
-    */
 
     //CeBuff->type = deviceType;
     //CeBuff->type = getDeviceTypeFromMessage(message);
@@ -272,6 +269,7 @@ void IoInterface::sendMessage(QUdpSocket *socket, QByteArray message, QHostAddre
 {
     qDebug() << "IoInterface::sendMessage start";
     qDebug() << "addr : " << addr.toString();
+
 
     socket->writeDatagram(message, addr, port);
     qDebug() << "IoInterface::sendMessage end";
