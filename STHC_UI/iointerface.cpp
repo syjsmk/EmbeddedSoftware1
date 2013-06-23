@@ -44,11 +44,10 @@ void IoInterface::listenBroadcast()
     quint16 port;
 
     if(socket->pendingDatagramSize() != -1){
-        qDebug() << socket->pendingDatagramSize();
         socket->readDatagram(buffer.data(), buffer.size(), &addr, &port);
 
         QDataStream stream(buffer);
-        qDebug() << "data = " << buffer.data() << " = " << buffer.toHex() << " addr : " << addr.toString() << " port : " << port << "size = " << buffer.count();
+        //qDebug() << "data = " << buffer.data() << " = " << buffer.toHex() << " addr : " << addr.toString() << " port : " << port << "size = " << buffer.count();
         //CeBuffer = &addr;
         // signal
         device.append(buffer.at(0)&0xFF);
@@ -58,6 +57,8 @@ void IoInterface::listenBroadcast()
         QHostAddress itorAddr;
 
         this->CeBuffer = makeCeStruct(buffer.at(0), addr, port);
+        printCEInfo(*CeBuffer);
+       // makeCeStruct(buffer.at(0), addr, port);
         emit getCeBufferSignal();
 /*
         switch(buffer.count())
@@ -95,14 +96,12 @@ void IoInterface::listenBroadcast()
 //QHostAddress* IoInterface::getCeBuffer()
 struct CE* IoInterface::getCeBuffer()
 {
-    qDebug() << "getCeBuffer";
-    printCEInfo(*CeBuffer);
+    //printCEInfo(*CeBuffer);
     return this->CeBuffer;
 }
 
 struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16 port)
 {
-    qDebug() << deviceType << "   hex :    " << deviceType;
     struct CE *CeBuff = new CE();
     CeBuff->addr = 0;
     CeBuff->socket = NULL;
@@ -150,17 +149,14 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
         }
     }
 
-    qDebug() << "ipSocketHashmap Size : " << ipSocketHashmap.size();
-
     CeBuff->socket = sock;
     CeBuff->addr = addr;
-    qDebug() << "makeCeStruct addr : " << addr.toString();
 
     // 임시
     CeBuff->firstAttr = 0x01;
     QString t;
     t.sprintf("first Attr : %x", CeBuff->firstAttr);
-    qDebug() << t;
+    //qDebug() << t;
 
     //connect(CeBuff->socket, SIGNAL(readyRead()), this, SLOT(recvMessage()));
 
@@ -198,21 +194,6 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
         break;
     }
 
-
-
-    qDebug() << "CeBuffddddddddddddddddddddddddddddddddddddddd";
-    printCEInfo(*CeBuff);
-    printCEInfo(*CeBuffer);
-
-
-
-    //int message = makeMessage(deviceType, MESSAGE_OPTION_GET, ATTRIBUTE_POWER, 0,addr, port);
-    //sendMessage(message, addr, port);
-    /*
-    TODO : 내부에서 addr, port, makeMessage를 이용해
-    broadcast를 보낸 기기에 getMessage를 만들어서 보내서
-    CE의 정보를 받아서 받아온 값들을 이용해 CeBuff의 값을 채워줘야 한다.
-       */
     return CeBuff;
 }
 
@@ -228,8 +209,6 @@ QByteArray IoInterface::makeMessage(char deviceType, char messageType, char attr
         message.append((char)0x00);
         message.append((char)0x00);
 
-        qDebug() << "type GET : " << message.toHex() << "size : " << message.size();
-
         return message;
     }
     if(messageType == 0x40)  //SET
@@ -240,46 +219,36 @@ QByteArray IoInterface::makeMessage(char deviceType, char messageType, char attr
         message.append(operand);
         message.append((char)0x00);
 
-        qDebug() << "type SET : " << message.toHex() << "size : " << message.size();
-
         return message;
     }
 }
 
 void IoInterface::sendMessage(QUdpSocket *socket, QByteArray message, QHostAddress addr, quint16 port)
 {
-    qDebug() << "IoInterface::sendMessage start";
-    qDebug() << "addr : " << addr.toString();
+    //qDebug() << "IoInterface::sendMessage start";
 
     socket->writeDatagram(message, addr, port);
-    qDebug() << "IoInterface::sendMessage end";
+    //qDebug() << "IoInterface::sendMessage end";
 
 }
 
 void IoInterface::recvMessage()
 {
-    qDebug() << "recvMessage()";
-    qDebug() << CeBuffer->addr.toString();
+    //qDebug() << "recvMessage()";
     QString t;
     t.sprintf("first Attr : %x", CeBuffer->firstAttr);
-    qDebug() << t;
+    //qDebug() << t;
 
     if(CeBuffer->socket->pendingDatagramSize() > 0)
     {
-        qDebug() << "datagramSize : " << CeBuffer->socket->pendingDatagramSize();
         QByteArray buffer(CeBuffer->socket->pendingDatagramSize(), 0);
 
         QObject *sender = const_cast<QObject*>(QObject::sender());
         QUdpSocket *sock = static_cast<QUdpSocket*>(sender);
         sock->readDatagram(buffer.data(), buffer.size());
 
-        printMessageInfo(buffer);
-/*
-        getDeviceTypeFromMessage(buffer);
-        getOperationTypeFromMessage(buffer);
-        getOperationFromMessage(buffer);
-        getOperandFromMessage(buffer);
-*/
+        //printMessageInfo(buffer);
+
         if(getOperationTypeFromMessage(buffer) == 0xc0)
         {
             switch(getOperationFromMessage(buffer))
@@ -298,7 +267,7 @@ void IoInterface::recvMessage()
             }
         }
 
-        printCEInfo(*CeBuffer);
+        //printCEInfo(*CeBuffer);
 
         emit initCompleteCeStructSignal();
 
@@ -309,7 +278,6 @@ void IoInterface::recvMessage()
 void IoInterface::sendGetMessageEachAttribute(CE *ce, int attributeCount)
 {
     CeBuffer = ce;
-    qDebug() << "sendGetMessageEachAttribute";
     QByteArray message;
     char attributeType = ATTRIBUTE_FIRST;
 
@@ -416,19 +384,19 @@ char IoInterface::getDeviceTypeFromMessage(QByteArray message)
     switch(deviceType)
     {
         case 0x00:
-            qDebug() << "Device <TV>";
+            //qDebug() << "Device <TV>";
         break;
         case 0x01:
-            qDebug() << "Device <Refrigerator>";
+            //qDebug() << "Device <Refrigerator>";
         break;
         case 0x02:
-            qDebug() << "Device <Light>";
+            //qDebug() << "Device <Light>";
         break;
         case 0x03:
-            qDebug() << "Device <Heater>";
+            //qDebug() << "Device <Heater>";
         break;
         case 0x04:
-            qDebug() << "Device <Cooler>";
+            //qDebug() << "Device <Cooler>";
         break;
         default:
         break;
@@ -444,16 +412,16 @@ char IoInterface::getOperationTypeFromMessage(QByteArray message)
     switch(operationType)
     {
         case 0x00:
-            qDebug() << "operation <broadcast>";
+            //qDebug() << "operation <broadcast>";
         break;
         case 0x40:
-            qDebug() << "operation <set>";
+           // qDebug() << "operation <set>";
         break;
         case 0x80:
-            qDebug() << "operation <get>";
+            //qDebug() << "operation <get>";
         break;
         case 0xc0:
-            qDebug() << "operation <res for get>";
+            //qDebug() << "operation <res for get>";
         break;
         default:
         break;
@@ -470,16 +438,16 @@ char IoInterface::getOperationFromMessage(QByteArray message)
     switch(operation)
     {
         case 0x00:
-            qDebug() << "ATTR_0";
+            //qDebug() << "ATTR_0";
         break;
         case 0x01:
-            qDebug() << "ATTR_1";
+            //qDebug() << "ATTR_1";
         break;
         case 0x02:
-            qDebug() << "ATTR_2";
+            //qDebug() << "ATTR_2";
         break;
         case 0x03:
-            qDebug() << "ATTR_3";
+            //qDebug() << "ATTR_3";
         break;
         default:
         break;
