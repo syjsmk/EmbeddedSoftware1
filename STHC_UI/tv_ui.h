@@ -4,9 +4,6 @@
 #include <QtGui/QMainWindow>
 
 #include <QUdpSocket>
-#include "iointerface.h"
-
-#include "hmmanager.h"
 
 namespace Ui
 {
@@ -32,9 +29,6 @@ private:
     bool power;
     int channel;
     int volume;
-
-    IoInterface *netMgr;
-    HMManager *hmmanager;
 
 private slots:
     void on_volDownButton_clicked();

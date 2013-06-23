@@ -1,7 +1,6 @@
 #ifndef HMMANAGER_H
 #define HMMANAGER_H
 
-#include <QObject>
 #include <list>
 
 

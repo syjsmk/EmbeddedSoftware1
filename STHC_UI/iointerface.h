@@ -10,6 +10,13 @@
 #include "ce.h"
 #include "MessageDefine.h"
 
+#include "tv_ui.h"
+#include "cooler_ui.h"
+#include "heater_ui.h"
+#include "light_ui.h"
+#include "refrigerator_ui.h"
+#include "tv_ui.h"
+
 // TODO : 얘네 다른 파일에 일괄적으로 정의해야 할 필요 있을듯 함
 
 

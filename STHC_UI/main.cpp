@@ -3,6 +3,9 @@
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include <signal.h>
+
+#include "hmmanager.h"
+
 #include "mysignal.h"
 #include "tv_ui.h"
 #include "iointerface.h"
@@ -58,9 +61,29 @@ int main(int argc, char *argv[])
     qDebug() << "sthc_pid = " << sthc_pid;
     ret = ioctl(dev, signal_ioctl2, &sthc_pid);
 
+    HMManager hmManager;
+    hmManager.getCeList();
 
+    CESelector_UI ceSelector;
+    ceSelector.setUiList(hmManager.getCeList());
+/*
+    CE* ce;
+    foreach(ce, *hmManager.getCeList())
+    {
+        //qDebug() << ce->ui->show();
+        qDebug() << hmManager.getCeList()->size();
+        ce->ui->show();
+    }
+
+    qDebug() << hmManager.getCeList()->size();
+    */
+
+    ceSelector.show();
+
+/*
     TV_UI w;
     w.show();
+    */
 
     return a.exec();
 }

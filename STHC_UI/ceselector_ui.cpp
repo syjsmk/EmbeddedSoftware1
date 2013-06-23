@@ -12,3 +12,20 @@ CESelector_UI::~CESelector_UI()
 {
     delete ui;
 }
+
+void CESelector_UI::setUiList(QList<CE*> *list)
+{
+    this->ceList = list;
+}
+
+void CESelector_UI::on_pushButton_clicked()
+{
+    qDebug() << "pushButton";
+    CE* ce;
+    foreach(ce, *ceList)
+    {
+        //qDebug() << ce->ui->show();
+        qDebug() << ceList->size();
+        ce->ui->show();
+    }
+}

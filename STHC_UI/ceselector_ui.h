@@ -18,7 +18,14 @@ public:
 
 private:
     Ui::CESelector_UI *ui;
+    QList<CE*> *ceList;
 
+public:
+    void setUiList(QList<CE*> *list);
+
+
+private slots:
+    void on_pushButton_clicked();
 };
 
 #endif // CESELECTOR_UI_H
