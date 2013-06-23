@@ -45,6 +45,8 @@ private :
     char getOperandFromMessage(QByteArray message);
     void sendGetMessageEachAttribute(CE *ce, int attributeCount);
 
+    QList<CE*> *ceList;
+
 public:
     //QHostAddress *getCeBuffer();
     void printMessageInfo(QByteArray message);
@@ -56,6 +58,8 @@ public:
     void printCEInfo(CE ce);
     //void recvMessage();
     void signalHandler(int signo, siginfo_t *info, void *context);
+
+    void setCeList(QList<CE*> *ceList);
 
 public slots:
   void listenBroadcast();

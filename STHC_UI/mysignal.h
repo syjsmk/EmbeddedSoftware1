@@ -11,8 +11,8 @@
 #define signal_ioctl2			_IOWR(signal_IOCTL_NUM,IOCTL_NUM2,unsigned long *)
 
 #define IRQ_UP               177
-#define IRQ_DOWN          175
-#define IRQ_LEFT            174
+#define IRQ_DOWN          174
+#define IRQ_LEFT            175
 
 
 #endif // MYSIGNAL_H

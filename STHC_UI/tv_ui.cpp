@@ -21,6 +21,9 @@ TV_UI::~TV_UI()
 void TV_UI::on_powerButton_clicked()
 {
     qDebug() << "powerButton clicked";
+    qDebug() << "FUUUUUUUUUUUUUUUUUUUUUUUUUUCKKKKKKKKKKKK";
+
+
 }
 
 void TV_UI::on_chUpButton_clicked()
@@ -41,3 +44,10 @@ void TV_UI::on_volDownButton_clicked()
 {
 
 }
+/*
+void TV_UI::setTv(CE *tv)
+{
+    qDebug() << "setTv";
+    this->tv = tv;
+}
+*/

@@ -3,8 +3,11 @@
 HMManager::HMManager()
 {
     ceList = new QList<CE*>;
-
+    curUI = 0;
+    prevUI = 0;
     this->ioInterface = new IoInterface();
+  //  this->ceSelector = new CESelector_UI();
+
     QObject::connect(ioInterface, SIGNAL(getCeBufferSignal()), this, SLOT(getCeBuffer()));
     QObject::connect(ioInterface, SIGNAL(initCompleteCeStructSignal()), this, SLOT(insertCE()));
 
@@ -25,6 +28,57 @@ void HMManager::listenBroadcast()
 void HMManager::insertCE()
 {
 
+}
+void HMManager::showUI(int cur, int prev)
+{
+    CE* ce;
+    qDebug() << "ceList Size : " << ceList->size() << "cur : " << cur << "prev : " << prev;
+
+    QString t;
+
+
+    if(ceList->size() == 1)
+    {
+        ce = ceList->at(cur);
+        t.sprintf("CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", ce->type, ce->firstAttr, ce->secondAttr, ce->thirdAttr);
+        qDebug() << t;
+
+        ce->ui->show();
+    }
+    if(ceList->size() > 1)
+    {
+        ce = ceList->at(prev);
+
+        t.sprintf("CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", ce->type, ce->firstAttr, ce->secondAttr, ce->thirdAttr);
+        qDebug() << t;
+
+        ce->ui->hide();
+    }
+    ce = ceList->at(cur);
+
+    t.sprintf("CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", ce->type, ce->firstAttr, ce->secondAttr, ce->thirdAttr);
+    qDebug() << t;
+
+    ce->ui->show();
+
+}
+
+void HMManager::selectorUI()
+{
+    prevUI = curUI;
+    curUI++;
+    if(curUI >= ceList->size())
+    {
+        curUI = 0;
+    }
+    showUI(curUI, prevUI);
+}
+
+void HMManager::showTV()
+{
+    prevUI = curUI;
+    curUI = 0;
+    showUI(curUI, prevUI);
 }
 
 void HMManager::getCeBuffer()

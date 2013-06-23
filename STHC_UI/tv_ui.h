@@ -5,6 +5,8 @@
 
 #include <QUdpSocket>
 
+//#include "ce.h"
+
 namespace Ui
 {
     class TV_UI;
@@ -21,6 +23,8 @@ public:
     TV_UI(QWidget *parent = 0);
     ~TV_UI();
 
+    //void setTv(CE *tv);
+
 private:
     Ui::TV_UI *ui;
 
@@ -29,6 +33,8 @@ private:
     bool power;
     int channel;
     int volume;
+
+    //CE* tv;
 
 private slots:
     void on_volDownButton_clicked();

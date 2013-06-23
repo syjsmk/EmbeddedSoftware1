@@ -5,6 +5,7 @@
 
 
 #include "iointerface.h"
+#include "ceselector_ui.h"
 
 using namespace std;
 
@@ -20,7 +21,8 @@ public:
 private:
     QList<CE*> *ceList;
     //list<CE> ceList;
-
+    int curUI;
+    int prevUI;
     IoInterface *ioInterface;
 
 public:
@@ -28,6 +30,9 @@ public:
     //void sendMessage(QByteArray message);
     void sendMessage();
     QList<CE*> *getCeList();
+    void selectorUI();
+    void showTV();
+    void showUI(int cur, int prev);
 
 public slots:
     void getCeBuffer();

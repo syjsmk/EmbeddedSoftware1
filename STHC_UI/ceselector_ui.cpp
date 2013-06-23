@@ -23,6 +23,26 @@ void CESelector_UI::setUiList(QList<CE*> *list)
     this->ceList = list;
 }
 
+void CESelector_UI::selectorUI(int uinum)
+{
+     CE* ce;
+     qDebug() << "djdkaljsfdklajskdlfjiqweirnjz;cvxnkq;nweirojkdljiaos;djfilq;wjelr;jaksld;fnv" << uinum;
+     qDebug() << "00000000000000000" << ceList->size();
+    if(uinum == 1)
+    {
+      //  ce = ceList->at(ceList->size()-1);
+      //  ce->ui->hide();
+    }
+    else
+    {
+    //    ceList->size();
+    //    ce = ceList->at(uinum-1);
+     //   ce->ui->hide();
+    }
+    ce = ceList->at(uinum);
+    ce->ui->show();
+}
+
 void CESelector_UI::on_pushButton_clicked()
 {
     qDebug() << "pushButton";

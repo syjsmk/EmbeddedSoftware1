@@ -25,6 +25,7 @@ typedef struct CE
     char firstAttr; // power
     char secondAttr; // channel, temperature, brightness
     char thirdAttr; // volume, wind
+
     QMainWindow* ui;
 
     QHostAddress addr;

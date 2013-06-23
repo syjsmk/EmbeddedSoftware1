@@ -466,3 +466,8 @@ char IoInterface::getOperandFromMessage(QByteArray message)
     char operand = message.at(2) & 0xff;
     return operand;
 }
+
+void IoInterface::setCeList(QList<CE*> *ceList)
+{
+    this->ceList = ceList;
+}

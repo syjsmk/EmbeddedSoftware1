@@ -26,9 +26,10 @@ private:
     QList<CE*>*refrigeratorList;
     CE* tv;
 
+
 public:
     void setUiList(QList<CE*> *list);
-
+    void selectorUI(int uinum);
 
 private slots:
     void on_pushButton_clicked();
