@@ -6,6 +6,7 @@ Heater_UI::Heater_UI(QWidget *parent) :
     m_ui(new Ui::Heater_UI)
 {
     m_ui->setupUi(this);
+    ioInterface = new IoInterface();
 
     qDebug() << "dddddddasdasdasdas";
 
@@ -15,6 +16,7 @@ Heater_UI::Heater_UI(QWidget *parent) :
 Heater_UI::~Heater_UI()
 {
     delete m_ui;
+    delete ioInterface;
 }
 
 void Heater_UI::changeEvent(QEvent *e)
@@ -31,12 +33,9 @@ void Heater_UI::changeEvent(QEvent *e)
 
 void Heater_UI::on_powerButton_clicked()
 {
-    qDebug() << "FUCkINGGGGGGGGGGGGGGGGGGGGGGGGGG HEAAAAAATTTTTTTEEEEEEEERRRRRRRR";
     QString t;
     t.sprintf("CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", heater->type, heater->firstAttr, heater->secondAttr, heater->thirdAttr);
     qDebug() << t;
-
-
 
 }
 
@@ -52,12 +51,51 @@ void Heater_UI::on_windDownButton_clicked()
 
 void Heater_UI::on_tempUpButton_clicked()
 {
+    QString t;
+    t.sprintf("BEFORE CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", heater->type, heater->firstAttr, heater->secondAttr, heater->thirdAttr);
+    qDebug() << t;
+
+    if((heater->secondAttr + 0x01) < 35)
+    {
+        heater->secondAttr += 0x01;
+    }
+
+    QByteArray message;
+    message = ioInterface->makeMessage(heater->type, MESSAGE_OPTION_SET, ATTRIBUTE_SECOND, heater->secondAttr);
+    ioInterface->sendMessage(heater->socket, message, heater->addr, 1106);
+
+    message = ioInterface->makeMessage(heater->type, MESSAGE_OPTION_GET, ATTRIBUTE_SECOND, heater->secondAttr);
+    initData();
+    ioInterface->sendMessage(heater->socket, message, heater->addr, 1106);
 
 }
 
 void Heater_UI::on_tempDownButton_clicked()
 {
 
+    QString t;
+    t.sprintf("BEFORE CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", heater->type, heater->firstAttr, heater->secondAttr, heater->thirdAttr);
+    qDebug() << t;
+
+    if((heater->secondAttr - 0x01) > 15)
+    {
+        qDebug() << "asdasdasdasdasdaefegrgetfgtrgf";
+        heater->secondAttr = heater->secondAttr -  0x01;
+    }
+
+
+
+    QByteArray message;
+    message = ioInterface->makeMessage(heater->type, MESSAGE_OPTION_SET, ATTRIBUTE_SECOND, heater->secondAttr);
+    ioInterface->sendMessage(heater->socket, message, heater->addr, 1106);
+
+    message = ioInterface->makeMessage(heater->type, MESSAGE_OPTION_GET, ATTRIBUTE_SECOND, heater->secondAttr);
+
+    t.sprintf("AFTER CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", heater->type, heater->firstAttr, heater->secondAttr, heater->thirdAttr);
+    qDebug() << t;
+
+    initData();
+    ioInterface->sendMessage(heater->socket, message, heater->addr, 1106);
 }
 void Heater_UI::setHeater(CE* heater)
 {

@@ -4,6 +4,7 @@
 #include <QtGui/QMainWindow>
 
 #include "ce.h"
+#include "iointerface.h"
 
 namespace Ui {
     class Heater_UI;
@@ -29,6 +30,7 @@ private:
     int wind;
 
     CE* heater;
+    IoInterface *ioInterface;
 
 private slots:
     void on_powerButton_clicked();
