@@ -36,13 +36,8 @@ void Heater_UI::on_powerButton_clicked()
     t.sprintf("CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", heater->type, heater->firstAttr, heater->secondAttr, heater->thirdAttr);
     qDebug() << t;
 
-    QString temp;
-    temp.sprintf("%d", heater->firstAttr);
-    m_ui->powerLabel->setText(temp);
-    temp.sprintf("%d", heater->secondAttr);
-    m_ui->temperatureVauleLabel->setText(temp);
-    temp.sprintf("%d", heater->thirdAttr);
-    m_ui->windValueLabel->setText(temp);
+
+
 }
 
 void Heater_UI::on_windUpButton_clicked()
@@ -67,4 +62,21 @@ void Heater_UI::on_tempDownButton_clicked()
 void Heater_UI::setHeater(CE* heater)
 {
     this->heater = heater;
+}
+
+void Heater_UI::initData()
+{
+    QString temp;
+    if(heater->firstAttr == 0x01)
+    {
+        temp.sprintf("off");
+    } else {
+        temp.sprintf("on");
+    }
+
+    m_ui->powerButton->setText(temp);
+    temp.sprintf("%d", heater->secondAttr);
+    m_ui->temperatureVauleLabel->setText(temp);
+    temp.sprintf("%d", heater->thirdAttr);
+    m_ui->windValueLabel->setText(temp);
 }

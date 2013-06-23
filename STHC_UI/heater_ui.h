@@ -16,6 +16,7 @@ public:
     ~Heater_UI();
 
     void setHeater(CE* heater);
+    void initData();
 
 protected:
     void changeEvent(QEvent *e);

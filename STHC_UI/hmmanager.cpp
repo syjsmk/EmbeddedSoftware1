@@ -17,6 +17,8 @@ HMManager::HMManager()
     this->lightUi = new Light_UI();
     this->refrigeratorUi = new Refrigerator_UI();
 
+
+
 }
 
 HMManager::~HMManager()
@@ -86,6 +88,7 @@ void HMManager::showUI(int cur, int prev)
                 tvUi->hide();
                 refrigeratorUi->hide();
                 lightUi->hide();
+                heaterUi->initData();
                 heaterUi->show();
                 coolerUi->hide();
             break;
@@ -145,6 +148,7 @@ void HMManager::showUI(int cur, int prev)
                 tvUi->hide();
                 refrigeratorUi->hide();
                 lightUi->hide();
+                heaterUi->initData();
                 heaterUi->show();
                 coolerUi->hide();
             break;
@@ -203,6 +207,7 @@ void HMManager::showUI(int cur, int prev)
                 tvUi->hide();
                 refrigeratorUi->hide();
                 lightUi->hide();
+                heaterUi->initData();
                 heaterUi->show();
                 coolerUi->hide();
             break;
