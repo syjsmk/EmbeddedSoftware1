@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
     ret = ioctl(dev, signal_ioctl2, &sthc_pid);
 
     CE *tv = new CE();
-    tv->ui = new TV_UI();
+    //tv->ui = new TV_UI();
 
 
     hmManager->getCeList()->append(tv);

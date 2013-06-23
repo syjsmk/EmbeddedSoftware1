@@ -5,6 +5,8 @@
 
 #include "iointerface.h"
 
+#include "ce.h"
+
 namespace Ui {
     class Refrigerator_UI;
 }
@@ -17,6 +19,8 @@ public:
     Refrigerator_UI(QWidget *parent = 0);
     ~Refrigerator_UI();
 
+    void setRefeigerator(CE *refrigerator);
+
 protected:
     void changeEvent(QEvent *e);
 
@@ -25,6 +29,8 @@ private:
 
     int power;
     int temperature;
+
+    CE* refrigerator;
 
 
 private slots:

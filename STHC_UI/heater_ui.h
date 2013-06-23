@@ -3,6 +3,8 @@
 
 #include <QtGui/QMainWindow>
 
+#include "ce.h"
+
 namespace Ui {
     class Heater_UI;
 }
@@ -13,6 +15,8 @@ public:
     Heater_UI(QWidget *parent = 0);
     ~Heater_UI();
 
+    void setHeater(CE* heater);
+
 protected:
     void changeEvent(QEvent *e);
 
@@ -22,6 +26,8 @@ private:
     bool power;
     int temperature;
     int wind;
+
+    CE* heater;
 
 private slots:
     void on_powerButton_clicked();

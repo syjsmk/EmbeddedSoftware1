@@ -40,7 +40,7 @@ void CESelector_UI::selectorUI(int uinum)
      //   ce->ui->hide();
     }
     ce = ceList->at(uinum);
-    ce->ui->show();
+    //ce->ui->show();
 }
 
 void CESelector_UI::on_pushButton_clicked()
@@ -79,7 +79,6 @@ void CESelector_UI::on_pushButton_clicked()
         }
 
         //ce->ui->show();
-        ce->ui->show();
     }
 
 }

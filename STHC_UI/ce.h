@@ -1,9 +1,7 @@
-
+#ifndef CE_H
+#define CE_H
 
 #include <QUdpSocket>
-#include <QtGui/QMainWindow>
-
-#define NOUSE   0xFF
 
 typedef struct CE
 {
@@ -26,8 +24,9 @@ typedef struct CE
     char secondAttr; // channel, temperature, brightness
     char thirdAttr; // volume, wind
 
-    QMainWindow* ui;
-
     QHostAddress addr;
     QUdpSocket *socket;
 };
+
+
+#endif

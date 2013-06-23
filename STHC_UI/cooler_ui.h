@@ -3,6 +3,8 @@
 
 #include <QtGui/QMainWindow>
 
+#include "ce.h"
+
 namespace Ui {
     class Cooler_UI;
 }
@@ -13,6 +15,8 @@ public:
     Cooler_UI(QWidget *parent = 0);
     ~Cooler_UI();
 
+    void setCooler(CE* cooler);
+
 protected:
     void changeEvent(QEvent *e);
 
@@ -22,6 +26,8 @@ private:
     bool power;
     int temperature;
     int wind;
+
+    CE* cooler;
 
 private slots:
     void on_windDownButton_clicked();

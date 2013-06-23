@@ -178,23 +178,18 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     {
         case 0x00:
         this->sendGetMessageEachAttribute(CeBuff, 3);
-        CeBuff->ui = new TV_UI();
         break;
         case 0x01:
         this->sendGetMessageEachAttribute(CeBuff, 2);
-        CeBuff->ui = new Refrigerator_UI();
         break;
         case 0x02:
         this->sendGetMessageEachAttribute(CeBuff, 2);
-        CeBuff->ui = new Light_UI();
         break;
         case 0x03:
         this->sendGetMessageEachAttribute(CeBuff, 3);
-        CeBuff->ui = new Heater_UI();
         break;
         case 0x04:
         this->sendGetMessageEachAttribute(CeBuff, 3);
-        CeBuff->ui = new Cooler_UI();
         break;
         default:
         break;

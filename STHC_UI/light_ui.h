@@ -3,6 +3,8 @@
 
 #include <QtGui/QMainWindow>
 
+#include "ce.h"
+
 namespace Ui {
     class Light_UI;
 }
@@ -13,6 +15,8 @@ public:
     Light_UI(QWidget *parent = 0);
     ~Light_UI();
 
+    void setLight(CE *light);
+
 protected:
     void changeEvent(QEvent *e);
 
@@ -21,6 +25,8 @@ private:
 
     int power;
     int brightness;
+
+    CE* light;
 
 private slots:
     void on_brightDownButton_clicked();

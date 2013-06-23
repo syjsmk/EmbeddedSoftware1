@@ -15,14 +15,16 @@ TV_UI::TV_UI(QWidget *parent)
 TV_UI::~TV_UI()
 {
     delete ui;
-
 }
 
 void TV_UI::on_powerButton_clicked()
 {
     qDebug() << "powerButton clicked";
-    qDebug() << "FUUUUUUUUUUUUUUUUUUUUUUUUUUCKKKKKKKKKKKK";
 
+    //ioInterface->sendMessage(
+    QString t;
+    t.sprintf("CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", tv->type, tv->firstAttr, tv->secondAttr, tv->thirdAttr);
+    qDebug() << t;
 
 }
 
@@ -44,10 +46,10 @@ void TV_UI::on_volDownButton_clicked()
 {
 
 }
-/*
+
 void TV_UI::setTv(CE *tv)
 {
     qDebug() << "setTv";
     this->tv = tv;
 }
-*/
+

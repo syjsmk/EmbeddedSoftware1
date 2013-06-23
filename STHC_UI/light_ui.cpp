@@ -39,3 +39,8 @@ void Light_UI::on_brightDownButton_clicked()
 {
 
 }
+
+void Light_UI::setLight(CE *light)
+{
+    this->light = light;
+}

@@ -7,6 +7,12 @@
 #include "iointerface.h"
 #include "ceselector_ui.h"
 
+#include "tv_ui.h"
+#include "heater_ui.h"
+#include "cooler_ui.h"
+#include "light_ui.h"
+#include "refrigerator_ui.h"
+
 using namespace std;
 
 class HMManager : public QObject
@@ -24,6 +30,12 @@ private:
     int curUI;
     int prevUI;
     IoInterface *ioInterface;
+
+    TV_UI *tvUi;
+    Heater_UI *heaterUi;
+    Cooler_UI *coolerUi;
+    Light_UI *lightUi;
+    Refrigerator_UI *refrigeratorUi;
 
 public:
     void listenBroadcast();

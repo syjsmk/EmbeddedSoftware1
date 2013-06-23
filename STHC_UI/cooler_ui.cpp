@@ -49,3 +49,8 @@ void Cooler_UI::on_windDownButton_clicked()
 {
 
 }
+
+void Cooler_UI::setCooler(CE* cooler)
+{
+    this->cooler = cooler;
+}

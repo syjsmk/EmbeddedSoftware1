@@ -39,3 +39,6 @@ void Refrigerator_UI::on_tempDownButton_clicked()
 {
 
 }
+void Refrigerator_UI::setRefeigerator(CE *refrigerator)
+{
+}
