@@ -2,10 +2,18 @@
 #define TV_UI_H
 
 #include <QtGui/QMainWindow>
-
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <fcntl.h>
 #include <QUdpSocket>
 
 #include "ce.h"
+#include "mysignal.h"
+
+#define MAXCH 0x0D
+#define MINCH 0x01
+#define MAXVOL 0x64
+#define MINVOL 0x00
 
 namespace Ui
 {
@@ -24,9 +32,11 @@ public:
     ~TV_UI();
 
     void setTv(CE *tv);
+    void initData();
 
 private:
     Ui::TV_UI *ui;
+    int ret;
 
     // 변수들 초기화 하려면
     // 패킷 받아서 그 값으로 해야 함.

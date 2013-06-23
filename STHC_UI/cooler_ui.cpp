@@ -128,4 +128,5 @@ void Cooler_UI::initData()
     m_ui->temperatureVauleLabel->setText(temp);
     temp.sprintf("%d", cooler->thirdAttr);
     m_ui->windValueLabel->setText(temp);
+    m_ui->ipLabel->setText(cooler->addr.toString());
 }

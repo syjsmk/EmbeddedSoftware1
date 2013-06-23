@@ -93,4 +93,5 @@ void Refrigerator_UI::initData()
     m_ui->powerButton->setText(temp);
     temp.sprintf("%d", refrigerator->secondAttr);
     m_ui->temperatureVauleLabel->setText(temp);
+    m_ui->ipLabel->setText(refrigerator->addr.toString());
 }

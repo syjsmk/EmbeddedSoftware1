@@ -23,7 +23,7 @@ typedef struct CE
     char firstAttr; // power
     char secondAttr; // channel, temperature, brightness
     char thirdAttr; // volume, wind
-
+    int dev;
     QHostAddress addr;
     QUdpSocket *socket;
 };

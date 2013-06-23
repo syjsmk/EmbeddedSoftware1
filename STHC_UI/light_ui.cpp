@@ -97,4 +97,5 @@ void Light_UI::initData()
     m_ui->powerButton->setText(temp);
     temp.sprintf("%d", light->secondAttr);
     m_ui->brightnessVauleLabel->setText(temp);
+    m_ui->ipLabel->setText(light->addr.toString());
 }

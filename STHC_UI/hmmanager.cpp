@@ -58,6 +58,7 @@ void HMManager::showUI(int cur, int prev)
             case 0x00:
                 qDebug() << "Device <TV>";
                 tvUi->setTv(ce);
+                tvUi->initData();
                 tvUi->show();
                 refrigeratorUi->hide();
                 lightUi->hide();
@@ -125,6 +126,7 @@ void HMManager::showUI(int cur, int prev)
             case 0x00:
                 qDebug() << "Device <TV>";
                 tvUi->setTv(ce);
+                tvUi->initData();
                 tvUi->show();
                 refrigeratorUi->hide();
                 lightUi->hide();
@@ -199,9 +201,20 @@ void HMManager::selectorUI()
 
 void HMManager::showTV()
 {
-    prevUI = curUI;
-    curUI = 0;
-    showUI(curUI, prevUI);
+        CE* ce;
+         foreach(ce, *ceList)
+        {
+            if(ce->addr.toString().compare("0.0.0.0") == 0)
+            {
+                    tvUi->setTv(ce);
+                    tvUi->initData();
+                    tvUi->show();
+                    refrigeratorUi->hide();
+                    lightUi->hide();
+                    heaterUi->hide();
+                    coolerUi->hide();
+            }
+        }
 }
 
 void HMManager::getCeBuffer()

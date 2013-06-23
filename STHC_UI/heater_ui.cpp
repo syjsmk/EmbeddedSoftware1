@@ -136,4 +136,5 @@ void Heater_UI::initData()
     m_ui->temperatureVauleLabel->setText(temp);
     temp.sprintf("%d", heater->thirdAttr);
     m_ui->windValueLabel->setText(temp);
+    m_ui->ipLabel->setText(heater->addr.toString());
 }
