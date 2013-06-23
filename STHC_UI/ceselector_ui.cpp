@@ -6,6 +6,11 @@ CESelector_UI::CESelector_UI(QWidget *parent) :
     ui(new Ui::CESelector_UI)
 {
     ui->setupUi(this);
+
+    coolerList = new QList<CE*>();
+    heaterList = new QList<CE*>();
+    lightList = new QList<CE*>();
+    refrigeratorList = new QList<CE*>();
 }
 
 CESelector_UI::~CESelector_UI()
@@ -32,7 +37,7 @@ void CESelector_UI::on_pushButton_clicked()
         qDebug() << t;
 
         // 0x00 <TV> 0x01 <Refrigerator> 0x02 <Light> 0x03 <Heater> 0x04 <Cooler>
-        /*
+
         switch(ce->type)
         {
             case 0x00:
@@ -52,7 +57,8 @@ void CESelector_UI::on_pushButton_clicked()
             default:
             break;
         }
-*/
+
+        //ce->ui->show();
         ce->ui->show();
     }
 
