@@ -68,6 +68,7 @@ void HMManager::showUI(int cur, int prev)
                 qDebug() << "Device <Refrigerator>";
                 refrigeratorUi->setRefeigerator(ce);
                 tvUi->hide();
+                refrigeratorUi->initData();
                 refrigeratorUi->show();
                 lightUi->hide();
                 heaterUi->hide();
@@ -134,6 +135,7 @@ void HMManager::showUI(int cur, int prev)
                 qDebug() << "Device <Refrigerator>";
                 refrigeratorUi->setRefeigerator(ce);
                 tvUi->hide();
+                refrigeratorUi->initData();
                 refrigeratorUi->show();
                 lightUi->hide();
                 heaterUi->hide();

@@ -65,44 +65,45 @@
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList" >
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-dzdyEXCdXs,guid=79d9d3a88759a6bfde6e10f351c40c84</value>
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-wqY7SM6K2P,guid=33edc8e3558bb093a2bc085051c4f08d</value>
     <value type="QString" >DEFAULTS_PATH=/usr/share/gconf/gnome.default.path</value>
     <value type="QString" >DESKTOP_SESSION=gnome</value>
     <value type="QString" >DESKTOP_STARTUP_ID=</value>
     <value type="QString" >DISPLAY=:0.0</value>
     <value type="QString" >GDMSESSION=gnome</value>
-    <value type="QString" >GDM_KEYBOARD_LAYOUT=kr</value>
-    <value type="QString" >GDM_LANG=ko_KR.UTF-8</value>
+    <value type="QString" >GDM_KEYBOARD_LAYOUT=us</value>
+    <value type="QString" >GDM_LANG=ko_KR</value>
     <value type="QString" >GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
-    <value type="QString" >GNOME_KEYRING_CONTROL=/tmp/keyring-RxqiWt</value>
-    <value type="QString" >GNOME_KEYRING_PID=1755</value>
+    <value type="QString" >GNOME_KEYRING_CONTROL=/tmp/keyring-4U13Il</value>
+    <value type="QString" >GNOME_KEYRING_PID=1975</value>
     <value type="QString" >GTK_IM_MODULE=ibus</value>
     <value type="QString" >GTK_MODULES=canberra-gtk-module</value>
-    <value type="QString" >HOME=/root</value>
+    <value type="QString" >HOME=/home/syjsmk</value>
     <value type="QString" >LANG=ko_KR.UTF-8</value>
+    <value type="QString" >LANGUAGE=ko_KR:en</value>
     <value type="QString" >LD_LIBRARY_PATH=/opt/qtcreator-1.2.1/lib/qtcreator:</value>
-    <value type="QString" >LOGNAME=root</value>
+    <value type="QString" >LOGNAME=syjsmk</value>
     <value type="QString" >MANDATORY_PATH=/usr/share/gconf/gnome.mandatory.path</value>
-    <value type="QString" >ORBIT_SOCKETDIR=/tmp/orbit-root</value>
+    <value type="QString" >ORBIT_SOCKETDIR=/tmp/orbit-syjsmk</value>
     <value type="QString" >PATH=/qt/qt4-arm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/arm-linux-4.1.1/bin</value>
-    <value type="QString" >PWD=/opt/qtcreator-1.2.1/bin</value>
+    <value type="QString" >PWD=/home/syjsmk</value>
     <value type="QString" >QTDIR=/qt/qt4-arm</value>
     <value type="QString" >QT_IM_MODULE=xim</value>
-    <value type="QString" >SESSION_MANAGER=local/cheolwoong-desktop:@/tmp/.ICE-unix/1773,unix/cheolwoong-desktop:/tmp/.ICE-unix/1773</value>
+    <value type="QString" >SESSION_MANAGER=local/es1-desktop:@/tmp/.ICE-unix/1993,unix/es1-desktop:/tmp/.ICE-unix/1993</value>
     <value type="QString" >SHELL=/bin/bash</value>
-    <value type="QString" >SPEECHD_PORT=6560</value>
-    <value type="QString" >SSH_AGENT_PID=1809</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-RxqiWt/ssh</value>
-    <value type="QString" >USER=root</value>
-    <value type="QString" >USERNAME=root</value>
-    <value type="QString" >XAUTHORITY=/var/run/gdm/auth-for-root-KaSpau/database</value>
+    <value type="QString" >SPEECHD_PORT=7561</value>
+    <value type="QString" >SSH_AGENT_PID=2028</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-4U13Il/ssh</value>
+    <value type="QString" >USER=syjsmk</value>
+    <value type="QString" >USERNAME=syjsmk</value>
+    <value type="QString" >XAUTHORITY=/var/run/gdm/auth-for-syjsmk-7lFNKr/database</value>
     <value type="QString" >XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome:/etc/xdg</value>
     <value type="QString" >XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share/:/usr/share/</value>
-    <value type="QString" >XDG_SESSION_COOKIE=3e8abdf8c2e3c0fe0d056c8d4fe7fd32-1371802756.347275-958582054</value>
+    <value type="QString" >XDG_SESSION_COOKIE=5736cd9f87cdd911abc8681f4f6186aa-1371861133.218738-118372822</value>
     <value type="QString" >XMODIFIERS=@im=ibus</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList" >
-    <value type="QString" >/root/STHC_UI/STHC_UI.pro</value>
+    <value type="QString" >/home/syjsmk/es1/assignment3/STHC_UI/STHC_UI.pro</value>
     <value type="QString" >-spec</value>
     <value type="QString" >/qt/qt4-arm/mkspecs/qws/linux-arm-g++</value>
     <value type="QString" >-r</value>
@@ -110,7 +111,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString" >/qt/qt4-arm/bin/qmake</value>
    <value key="abstractProcess.enabled" type="bool" >false</value>
-   <value key="abstractProcess.workingDirectory" type="QString" >/root/STHC_UI</value>
+   <value key="abstractProcess.workingDirectory" type="QString" >/home/syjsmk/es1/assignment3/STHC_UI</value>
    <value key="buildConfiguration" type="int" >2</value>
   </valuemap>
  </data>
@@ -119,40 +120,41 @@
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList" >
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-dzdyEXCdXs,guid=79d9d3a88759a6bfde6e10f351c40c84</value>
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-wqY7SM6K2P,guid=33edc8e3558bb093a2bc085051c4f08d</value>
     <value type="QString" >DEFAULTS_PATH=/usr/share/gconf/gnome.default.path</value>
     <value type="QString" >DESKTOP_SESSION=gnome</value>
     <value type="QString" >DESKTOP_STARTUP_ID=</value>
     <value type="QString" >DISPLAY=:0.0</value>
     <value type="QString" >GDMSESSION=gnome</value>
-    <value type="QString" >GDM_KEYBOARD_LAYOUT=kr</value>
-    <value type="QString" >GDM_LANG=ko_KR.UTF-8</value>
+    <value type="QString" >GDM_KEYBOARD_LAYOUT=us</value>
+    <value type="QString" >GDM_LANG=ko_KR</value>
     <value type="QString" >GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
-    <value type="QString" >GNOME_KEYRING_CONTROL=/tmp/keyring-RxqiWt</value>
-    <value type="QString" >GNOME_KEYRING_PID=1755</value>
+    <value type="QString" >GNOME_KEYRING_CONTROL=/tmp/keyring-4U13Il</value>
+    <value type="QString" >GNOME_KEYRING_PID=1975</value>
     <value type="QString" >GTK_IM_MODULE=ibus</value>
     <value type="QString" >GTK_MODULES=canberra-gtk-module</value>
-    <value type="QString" >HOME=/root</value>
+    <value type="QString" >HOME=/home/syjsmk</value>
     <value type="QString" >LANG=ko_KR.UTF-8</value>
+    <value type="QString" >LANGUAGE=ko_KR:en</value>
     <value type="QString" >LD_LIBRARY_PATH=/opt/qtcreator-1.2.1/lib/qtcreator:</value>
-    <value type="QString" >LOGNAME=root</value>
+    <value type="QString" >LOGNAME=syjsmk</value>
     <value type="QString" >MANDATORY_PATH=/usr/share/gconf/gnome.mandatory.path</value>
-    <value type="QString" >ORBIT_SOCKETDIR=/tmp/orbit-root</value>
+    <value type="QString" >ORBIT_SOCKETDIR=/tmp/orbit-syjsmk</value>
     <value type="QString" >PATH=/qt/qt4-arm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/arm-linux-4.1.1/bin</value>
-    <value type="QString" >PWD=/opt/qtcreator-1.2.1/bin</value>
+    <value type="QString" >PWD=/home/syjsmk</value>
     <value type="QString" >QTDIR=/qt/qt4-arm</value>
     <value type="QString" >QT_IM_MODULE=xim</value>
-    <value type="QString" >SESSION_MANAGER=local/cheolwoong-desktop:@/tmp/.ICE-unix/1773,unix/cheolwoong-desktop:/tmp/.ICE-unix/1773</value>
+    <value type="QString" >SESSION_MANAGER=local/es1-desktop:@/tmp/.ICE-unix/1993,unix/es1-desktop:/tmp/.ICE-unix/1993</value>
     <value type="QString" >SHELL=/bin/bash</value>
-    <value type="QString" >SPEECHD_PORT=6560</value>
-    <value type="QString" >SSH_AGENT_PID=1809</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-RxqiWt/ssh</value>
-    <value type="QString" >USER=root</value>
-    <value type="QString" >USERNAME=root</value>
-    <value type="QString" >XAUTHORITY=/var/run/gdm/auth-for-root-KaSpau/database</value>
+    <value type="QString" >SPEECHD_PORT=7561</value>
+    <value type="QString" >SSH_AGENT_PID=2028</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-4U13Il/ssh</value>
+    <value type="QString" >USER=syjsmk</value>
+    <value type="QString" >USERNAME=syjsmk</value>
+    <value type="QString" >XAUTHORITY=/var/run/gdm/auth-for-syjsmk-7lFNKr/database</value>
     <value type="QString" >XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome:/etc/xdg</value>
     <value type="QString" >XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share/:/usr/share/</value>
-    <value type="QString" >XDG_SESSION_COOKIE=3e8abdf8c2e3c0fe0d056c8d4fe7fd32-1371802756.347275-958582054</value>
+    <value type="QString" >XDG_SESSION_COOKIE=5736cd9f87cdd911abc8681f4f6186aa-1371861133.218738-118372822</value>
     <value type="QString" >XMODIFIERS=@im=ibus</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList" >
@@ -160,7 +162,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString" >/usr/bin/make</value>
    <value key="abstractProcess.enabled" type="bool" >true</value>
-   <value key="abstractProcess.workingDirectory" type="QString" >/root/STHC_UI</value>
+   <value key="abstractProcess.workingDirectory" type="QString" >/home/syjsmk/es1/assignment3/STHC_UI</value>
   </valuemap>
  </data>
  <data>
@@ -168,40 +170,41 @@
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList" >
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-dzdyEXCdXs,guid=79d9d3a88759a6bfde6e10f351c40c84</value>
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-wqY7SM6K2P,guid=33edc8e3558bb093a2bc085051c4f08d</value>
     <value type="QString" >DEFAULTS_PATH=/usr/share/gconf/gnome.default.path</value>
     <value type="QString" >DESKTOP_SESSION=gnome</value>
     <value type="QString" >DESKTOP_STARTUP_ID=</value>
     <value type="QString" >DISPLAY=:0.0</value>
     <value type="QString" >GDMSESSION=gnome</value>
-    <value type="QString" >GDM_KEYBOARD_LAYOUT=kr</value>
-    <value type="QString" >GDM_LANG=ko_KR.UTF-8</value>
+    <value type="QString" >GDM_KEYBOARD_LAYOUT=us</value>
+    <value type="QString" >GDM_LANG=ko_KR</value>
     <value type="QString" >GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
-    <value type="QString" >GNOME_KEYRING_CONTROL=/tmp/keyring-RxqiWt</value>
-    <value type="QString" >GNOME_KEYRING_PID=1755</value>
+    <value type="QString" >GNOME_KEYRING_CONTROL=/tmp/keyring-4U13Il</value>
+    <value type="QString" >GNOME_KEYRING_PID=1975</value>
     <value type="QString" >GTK_IM_MODULE=ibus</value>
     <value type="QString" >GTK_MODULES=canberra-gtk-module</value>
-    <value type="QString" >HOME=/root</value>
+    <value type="QString" >HOME=/home/syjsmk</value>
     <value type="QString" >LANG=ko_KR.UTF-8</value>
+    <value type="QString" >LANGUAGE=ko_KR:en</value>
     <value type="QString" >LD_LIBRARY_PATH=/opt/qtcreator-1.2.1/lib/qtcreator:</value>
-    <value type="QString" >LOGNAME=root</value>
+    <value type="QString" >LOGNAME=syjsmk</value>
     <value type="QString" >MANDATORY_PATH=/usr/share/gconf/gnome.mandatory.path</value>
-    <value type="QString" >ORBIT_SOCKETDIR=/tmp/orbit-root</value>
+    <value type="QString" >ORBIT_SOCKETDIR=/tmp/orbit-syjsmk</value>
     <value type="QString" >PATH=/qt/qt4-arm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/arm-linux-4.1.1/bin</value>
-    <value type="QString" >PWD=/opt/qtcreator-1.2.1/bin</value>
+    <value type="QString" >PWD=/home/syjsmk</value>
     <value type="QString" >QTDIR=/qt/qt4-arm</value>
     <value type="QString" >QT_IM_MODULE=xim</value>
-    <value type="QString" >SESSION_MANAGER=local/cheolwoong-desktop:@/tmp/.ICE-unix/1773,unix/cheolwoong-desktop:/tmp/.ICE-unix/1773</value>
+    <value type="QString" >SESSION_MANAGER=local/es1-desktop:@/tmp/.ICE-unix/1993,unix/es1-desktop:/tmp/.ICE-unix/1993</value>
     <value type="QString" >SHELL=/bin/bash</value>
-    <value type="QString" >SPEECHD_PORT=6560</value>
-    <value type="QString" >SSH_AGENT_PID=1809</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-RxqiWt/ssh</value>
-    <value type="QString" >USER=root</value>
-    <value type="QString" >USERNAME=root</value>
-    <value type="QString" >XAUTHORITY=/var/run/gdm/auth-for-root-KaSpau/database</value>
+    <value type="QString" >SPEECHD_PORT=7561</value>
+    <value type="QString" >SSH_AGENT_PID=2028</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-4U13Il/ssh</value>
+    <value type="QString" >USER=syjsmk</value>
+    <value type="QString" >USERNAME=syjsmk</value>
+    <value type="QString" >XAUTHORITY=/var/run/gdm/auth-for-syjsmk-7lFNKr/database</value>
     <value type="QString" >XDG_CONFIG_DIRS=/etc/xdg/xdg-gnome:/etc/xdg</value>
     <value type="QString" >XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share/:/usr/share/</value>
-    <value type="QString" >XDG_SESSION_COOKIE=3e8abdf8c2e3c0fe0d056c8d4fe7fd32-1371802756.347275-958582054</value>
+    <value type="QString" >XDG_SESSION_COOKIE=5736cd9f87cdd911abc8681f4f6186aa-1371861133.218738-118372822</value>
     <value type="QString" >XMODIFIERS=@im=ibus</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList" >
@@ -210,7 +213,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString" >/usr/bin/make</value>
    <value key="abstractProcess.enabled" type="bool" >true</value>
-   <value key="abstractProcess.workingDirectory" type="QString" >/root/STHC_UI</value>
+   <value key="abstractProcess.workingDirectory" type="QString" >/home/syjsmk/es1/assignment3/STHC_UI</value>
   </valuemap>
  </data>
  <data>

@@ -35,6 +35,8 @@ private:
     int volume;
 
 
+
+
     CE* tv;
 
 private slots:

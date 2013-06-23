@@ -20,6 +20,7 @@ public:
     ~Refrigerator_UI();
 
     void setRefeigerator(CE *refrigerator);
+    void initData();
 
 protected:
     void changeEvent(QEvent *e);
@@ -31,6 +32,7 @@ private:
     int temperature;
 
     CE* refrigerator;
+    IoInterface *ioInterface;
 
 
 private slots:
