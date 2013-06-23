@@ -4,6 +4,7 @@
 #include <QtGui/QMainWindow>
 
 #include "ce.h"
+#include "iointerface.h"
 
 namespace Ui {
     class Cooler_UI;
@@ -16,6 +17,7 @@ public:
     ~Cooler_UI();
 
     void setCooler(CE* cooler);
+    void initData();
 
 protected:
     void changeEvent(QEvent *e);
@@ -28,6 +30,7 @@ private:
     int wind;
 
     CE* cooler;
+    IoInterface *ioInterface;
 
 private slots:
     void on_windDownButton_clicked();

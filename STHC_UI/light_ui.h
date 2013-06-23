@@ -5,6 +5,8 @@
 
 #include "ce.h"
 
+#include "iointerface.h"
+
 namespace Ui {
     class Light_UI;
 }
@@ -16,6 +18,7 @@ public:
     ~Light_UI();
 
     void setLight(CE *light);
+    void initData();
 
 protected:
     void changeEvent(QEvent *e);
@@ -27,6 +30,7 @@ private:
     int brightness;
 
     CE* light;
+    IoInterface *ioInterface;
 
 private slots:
     void on_brightDownButton_clicked();

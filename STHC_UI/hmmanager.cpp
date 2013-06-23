@@ -40,7 +40,7 @@ void HMManager::insertCE()
 void HMManager::showUI(int cur, int prev)
 {
     CE* ce;
-    qDebug() << "ceList Size : " << ceList->size() << "cur : " << cur << "prev : " << prev;
+    qDebug() << "zzzzzzzzzzzceList Size : " << ceList->size() << "cur : " << cur << "prev : " << prev;
 
     QString t;
 
@@ -78,6 +78,7 @@ void HMManager::showUI(int cur, int prev)
                 lightUi->setLight(ce);
                 tvUi->hide();
                 refrigeratorUi->hide();
+                lightUi->initData();
                 lightUi->show();
                 heaterUi->hide();
                 coolerUi->hide();
@@ -94,10 +95,14 @@ void HMManager::showUI(int cur, int prev)
             break;
             case 0x04:
                 qDebug() << "Device <Cooler>";
+
+                t.sprintf("111111111111CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", ce->type, ce->firstAttr, ce->secondAttr, ce->thirdAttr);
+    qDebug() << t;
                 coolerUi->setCooler(ce);
                 tvUi->hide();
                 refrigeratorUi->hide();
                 lightUi->hide();
+                coolerUi->initData();
                 coolerUi->show();
             break;
             default:
@@ -107,66 +112,8 @@ void HMManager::showUI(int cur, int prev)
     }
     if(ceList->size() > 1)
     {
-        ce = ceList->at(prev);
 
-        t.sprintf("CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", ce->type, ce->firstAttr, ce->secondAttr, ce->thirdAttr);
-        qDebug() << t;
-
-        char deviceType = ce->type;
-        switch(deviceType)
-        {
-            case 0x00:
-                qDebug() << "Device <TV>";
-                tvUi->setTv(ce);
-                tvUi->show();
-                refrigeratorUi->hide();
-                lightUi->hide();
-                heaterUi->hide();
-                coolerUi->hide();
-            break;
-            case 0x01:
-                qDebug() << "Device <Refrigerator>";
-                refrigeratorUi->setRefeigerator(ce);
-                tvUi->hide();
-                refrigeratorUi->show();
-                lightUi->hide();
-                heaterUi->hide();
-                coolerUi->hide();
-            break;
-            case 0x02:
-                qDebug() << "Device <Light>";
-                lightUi->setLight(ce);
-                tvUi->hide();
-                refrigeratorUi->hide();
-                lightUi->show();
-                heaterUi->hide();
-                coolerUi->hide();
-            break;
-            case 0x03:
-                qDebug() << "Device <Heater>";
-                heaterUi->setHeater(ce);
-                tvUi->hide();
-                refrigeratorUi->hide();
-                lightUi->hide();
-                heaterUi->initData();
-                heaterUi->show();
-                coolerUi->hide();
-            break;
-            case 0x04:
-                qDebug() << "Device <Cooler>";
-                coolerUi->setCooler(ce);
-                tvUi->hide();
-                refrigeratorUi->hide();
-                lightUi->hide();
-                coolerUi->show();
-            break;
-            default:
-            break;
-        }
-
-        //ce->ui->hide();
-    }
-    ce = ceList->at(cur);
+        ce = ceList->at(cur);
 
     t.sprintf("CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", ce->type, ce->firstAttr, ce->secondAttr, ce->thirdAttr);
     qDebug() << t;
@@ -197,6 +144,7 @@ void HMManager::showUI(int cur, int prev)
                 lightUi->setLight(ce);
                 tvUi->hide();
                 refrigeratorUi->hide();
+                lightUi->initData();
                 lightUi->show();
                 heaterUi->hide();
                 coolerUi->hide();
@@ -213,15 +161,23 @@ void HMManager::showUI(int cur, int prev)
             break;
             case 0x04:
                 qDebug() << "Device <Cooler>";
+
+                t.sprintf("1111111111CE type : %x, firstAttr %x, secondAttr : %x, thirdAttr : %x", ce->type, ce->firstAttr, ce->secondAttr, ce->thirdAttr);
+    qDebug() << t;
+
                 coolerUi->setCooler(ce);
                 tvUi->hide();
                 refrigeratorUi->hide();
                 lightUi->hide();
+                coolerUi->initData();
                 coolerUi->show();
             break;
             default:
             break;
         }
+
+        //ce->ui->hide();
+    }
 
     //ce->ui->show();
 

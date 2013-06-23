@@ -268,7 +268,7 @@ void IoInterface::recvMessage()
             }
         }
 
-        //printCEInfo(*CeBuffer);
+        printCEInfo(*CeBuffer);
 
         emit initCompleteCeStructSignal();
 
