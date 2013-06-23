@@ -109,7 +109,7 @@ struct CE* IoInterface::makeCeStruct(char deviceType, QHostAddress addr, quint16
     CeBuff->type = 0x00;
     CeBuff->firstAttr = 0x00;
     CeBuff->secondAttr = 0x00;
-    CeBuff->thirdAttr = 0x00;
+    CeBuff->thirdAttr = 0xFF;
     //CeBuff->ui = new QMainWindow();
 
 

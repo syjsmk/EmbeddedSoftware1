@@ -20,6 +20,12 @@ private:
     Ui::CESelector_UI *ui;
     QList<CE*> *ceList;
 
+    QList<CE*> *coolerList;
+    QList<CE*> *heaterList;
+    QList<CE*> *lightList;
+    QList<CE*>*refrigeratorList;
+    CE* tv;
+
 public:
     void setUiList(QList<CE*> *list);
 
